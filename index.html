@@ -161,6 +161,7 @@
   .cta-band p{color:var(--ink-soft); font-size:15px; max-width:44ch;}
   .cta-band .cta-right{flex-shrink:0; display:flex; flex-direction:column; gap:10px; min-width:220px;}
   .contact-line{font-size:14px; color:var(--forest-deep); font-weight:600;}
+  .contact-line a{color:var(--maroon); text-decoration:underline;}
 
   footer{border-top:1px solid var(--line); padding:32px 0; margin-top:40px;}
   .footer-inner{display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--ink-soft);}
@@ -289,7 +290,7 @@
       <div class="step">
         <div class="num">1</div>
         <h3>다운로드</h3>
-        <p>아래 버튼을 눌러 설치 파일(Setup.exe)을 받습니다.</p>
+        <p>아래 버튼을 눌러 설치 파일(Setup.exe)을 받습니다. "안전하지 않을 수 있음" 같은 경고가 뜨면, 처음 배포된 프로그램이라 아직 안전 인증이 안 되어 나타나는 정상적인 경고입니다. "추가 정보 → 실행" 또는 "유지"를 눌러 진행하시면 됩니다.</p>
       </div>
       <div class="step">
         <div class="num">2</div>
@@ -315,8 +316,8 @@
       <div class="cta-right">
         <!-- 실제 다운로드 링크로 연결됨 (GitHub Releases v4.7.0) -->
         <a class="btn btn-primary" href="https://github.com/chaeun-son/church-bulletin-editor-/releases/download/v4.7.0/_Setup.exe" id="download-link">Setup.exe 다운로드</a>
-        <!-- ⚠️ 실제 연락처로 교체하세요 -->
-        <span class="contact-line">문의: 이메일 또는 카카오톡 주소를 여기에</span>
+        <span class="hero-note" style="margin-top:2px;">보안 경고가 뜨면 정상입니다 — 처음 배포된 파일이라 아직 안전 인증이 안 된 것뿐입니다. "추가 정보 → 실행" 또는 "유지"를 눌러 진행해주세요.</span>
+        <span class="contact-line">문의: <a href="mailto:immanuel1320@naver.com">immanuel1320@naver.com</a></span>
       </div>
     </div>
   </div>
