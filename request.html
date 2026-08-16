@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>주보편집기 — 사용 신청하기</title>
+<meta name="description" content="주보편집기 사용 신청. 교회명과 이메일만 남겨주시면 확인 후 시리얼 번호를 보내드립니다.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --cream:#FAF6EC; --paper:#F4EDE1; --ink:#2A2620; --ink-soft:#6B6558;
+    --forest:#2C4C3E; --forest-deep:#1D3329; --maroon:#7A2420; --maroon-deep:#5C1B18;
+    --tan:#C9B79A; --line:#DED3BC;
+    --serif:'Noto Serif KR', serif; --sans:'Pretendard', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--cream); line-height:1.65;
+    word-break:keep-all; overflow-wrap:break-word; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:600px; margin:0 auto; padding:0 24px;}
+  header{border-bottom:1px solid var(--line); padding:16px 0;}
+  .header-inner{display:flex; align-items:center; gap:10px; max-width:600px; margin:0 auto; padding:0 24px;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:var(--serif); font-weight:700; font-size:18px; color:var(--forest-deep); text-decoration:none;}
+  .brand img{width:30px; height:30px; border-radius:8px;}
+
+  main{padding:56px 0 80px;}
+  h1{font-family:var(--serif); font-weight:800; font-size:28px; color:var(--forest-deep); margin-bottom:12px;}
+  .lead{color:var(--ink-soft); font-size:15px; margin-bottom:36px;}
+
+  form{display:flex; flex-direction:column; gap:20px;}
+  label{display:block; font-size:14px; font-weight:700; color:var(--forest-deep); margin-bottom:6px;}
+  .req{color:var(--maroon);}
+  input, textarea{
+    width:100%; font-family:var(--sans); font-size:15px; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:8px;
+    padding:11px 13px; outline:none;
+  }
+  input:focus, textarea:focus{border-color:var(--forest);}
+  textarea{resize:vertical; min-height:80px;}
+  .hint{font-size:12.5px; color:var(--ink-soft); margin-top:5px;}
+
+  button{
+    margin-top:8px; padding:14px 22px; border:none; border-radius:8px;
+    background:var(--maroon); color:#F9EFE9; font-size:16px; font-weight:700;
+    cursor:pointer; transition:background .15s ease;
+  }
+  button:hover{background:var(--maroon-deep);}
+  button:disabled{background:var(--tan); cursor:not-allowed;}
+
+  .msg{padding:14px 16px; border-radius:8px; font-size:14px; display:none; margin-top:4px;}
+  .msg.show{display:block;}
+  .msg.ok{background:#E4EDE6; color:var(--forest-deep); border:1px solid #C7DACB;}
+  .msg.err{background:#FBEAE8; color:var(--maroon-deep); border:1px solid #EFC7C0;}
+
+  .back{display:inline-block; margin-top:36px; font-size:14px; color:var(--forest); text-decoration:underline;}
+  .success-box{display:none; text-align:center; padding:40px 20px;}
+  .success-box.show{display:block;}
+  .success-box h2{font-family:var(--serif); font-size:22px; color:var(--forest-deep); margin-bottom:12px;}
+  .success-box p{color:var(--ink-soft); font-size:15px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/app-icon.png" alt="">
+      주보편집기
+    </a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="form-view">
+    <h1>사용 신청하기</h1>
+    <p class="lead">교회명과 이메일만 남겨주시면 확인 후 시리얼 번호를 이메일로 보내드립니다. 보통 1~2일 안에 답변드려요.</p>
+
+    <form id="request-form">
+      <div>
+        <label for="church_name">교회명 <span class="req">*</span></label>
+        <input type="text" id="church_name" name="church_name" placeholder="예: 전주그리스도의교회" required maxlength="120">
+      </div>
+      <div>
+        <label for="email">이메일 <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="example@email.com" required maxlength="120">
+        <p class="hint">시리얼 번호를 이 주소로 보내드립니다.</p>
+      </div>
+      <div>
+        <label for="contact_name">담당자 이름</label>
+        <input type="text" id="contact_name" name="contact_name" placeholder="예: 김OO 집사" maxlength="120">
+      </div>
+      <div>
+        <label for="phone">연락처</label>
+        <input type="text" id="phone" name="phone" placeholder="010-0000-0000 (선택)" maxlength="120">
+      </div>
+      <div>
+        <label for="note">남기실 말씀</label>
+        <textarea id="note" name="note" placeholder="교단, PC 사용 대수, 궁금한 점 등을 자유롭게 적어주세요 (선택)" maxlength="500"></textarea>
+      </div>
+
+      <div id="form-msg" class="msg"></div>
+      <button type="submit" id="submit-btn">신청하기</button>
+    </form>
+
+    <a class="back" href="index.html">&larr; 홈으로 돌아가기</a>
+  </div>
+
+  <div id="success-view" class="success-box">
+    <h2>신청이 접수되었습니다</h2>
+    <p>확인 후 입력하신 이메일로 시리얼 번호를 보내드릴게요.<br>보통 1~2일 안에 연락드립니다.</p>
+    <a class="back" href="index.html">&larr; 홈으로 돌아가기</a>
+  </div>
+</main>
+
+<script>
+  const SERVER = 'https://church-bulletin-license-server.onrender.com';
+  const form = document.getElementById('request-form');
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-msg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.className = 'msg';
+    msg.textContent = '';
+
+    const payload = {
+      church_name: document.getElementById('church_name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      contact_name: document.getElementById('contact_name').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      note: document.getElementById('note').value.trim(),
+    };
+
+    if (!payload.church_name || !payload.email) {
+      msg.textContent = '교회명과 이메일은 꼭 입력해 주세요.';
+      msg.className = 'msg err show';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = '보내는 중...';
+
+    try {
+      const res = await fetch(SERVER + '/api/request-access', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        document.getElementById('form-view').style.display = 'none';
+        document.getElementById('success-view').classList.add('show');
+      } else {
+        msg.textContent = data.error || '신청 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+        msg.className = 'msg err show';
+        btn.disabled = false;
+        btn.textContent = '신청하기';
+      }
+    } catch (err) {
+      msg.textContent = '서버에 연결할 수 없습니다. 잠시 후 다시 시도해 주세요. (서버가 잠들어 있으면 첫 요청이 느릴 수 있어요)';
+      msg.className = 'msg err show';
+      btn.disabled = false;
+      btn.textContent = '신청하기';
+    }
+  });
+</script>
+
+</body>
+</html>
