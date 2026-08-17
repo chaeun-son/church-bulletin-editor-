@@ -215,6 +215,31 @@
   .tpl-note a{color:var(--maroon); font-weight:700;}
 
   
+
+  .tpl-thumb.tpl-pair{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    aspect-ratio:297/160;
+  }
+  .tpl-thumb.tpl-pair .tpl-face{
+    position:relative; overflow:hidden; min-width:0;
+  }
+  .tpl-thumb.tpl-pair .tpl-face + .tpl-face{border-left:1px solid var(--line);}
+  .tpl-thumb.tpl-pair img{width:100%; height:100%; object-fit:cover; object-position:center;}
+  .tpl-thumb.tpl-pair .tpl-face i{
+    position:absolute; left:8px; bottom:8px;
+    font-style:normal; font-size:11px; font-weight:700;
+    background:rgba(250,246,236,.92); color:var(--forest-deep);
+    border:1px solid var(--line); border-radius:999px; padding:2px 8px;
+  }
+  .tpl-lightbox-figure.pair{
+    display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start;
+  }
+  .tpl-lightbox-figure.pair figure{margin:0; min-width:0;}
+  .tpl-lightbox-figure.pair img{max-height:min(58vh,520px); width:100%;}
+  .tpl-lightbox-figure.pair figcaption{
+    font-size:12px; font-weight:700; color:var(--forest-deep); margin-top:8px; text-align:center;
+  }
+
   .tpl-lightbox[hidden]{display:none;}
   .tpl-lightbox{
     position:fixed; inset:0; z-index:80;
@@ -269,6 +294,7 @@
     .tpl-card.portrait .tpl-thumb{max-height:none;}
     .tpl-lightbox-panel{grid-template-columns:1fr;}
     .tpl-lightbox-figure{border-right:0; border-bottom:1px solid var(--line);}
+    .tpl-lightbox-figure.pair{grid-template-columns:1fr;}
   }
 
   :focus-visible{outline:2px solid var(--forest); outline-offset:2px;}
@@ -390,7 +416,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/advent.jpg" alt="대림절 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/advent.jpg" alt="대림절 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/advent-back.jpg" alt="대림절 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>대림절</h3>
@@ -398,7 +424,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/christmas.jpg" alt="성탄절 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/christmas.jpg" alt="성탄절 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/christmas-back.jpg" alt="성탄절 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>성탄절</h3>
@@ -406,7 +432,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/easter.jpg" alt="부활절 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/easter.jpg" alt="부활절 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/easter-back.jpg" alt="부활절 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>부활절</h3>
@@ -414,7 +440,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/thanksgiving.jpg" alt="추수감사절 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/thanksgiving.jpg" alt="추수감사절 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/thanksgiving-back.jpg" alt="추수감사절 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>추수감사절</h3>
@@ -422,7 +448,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/newyear.jpg" alt="송구영신 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/newyear.jpg" alt="송구영신 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/newyear-back.jpg" alt="송구영신 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>송구영신</h3>
@@ -430,7 +456,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/spring.jpg" alt="봄 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/spring.jpg" alt="봄 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/spring-back.jpg" alt="봄 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>봄</h3>
@@ -438,7 +464,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/summer.jpg" alt="여름 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/summer.jpg" alt="여름 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/summer-back.jpg" alt="여름 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>여름</h3>
@@ -446,7 +472,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/autumn.jpg" alt="가을 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/autumn.jpg" alt="가을 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/autumn-back.jpg" alt="가을 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>가을</h3>
@@ -454,7 +480,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="season" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/winter.jpg" alt="겨울 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/winter.jpg" alt="겨울 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/winter-back.jpg" alt="겨울 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">절기 배경</div>
           <h3>겨울</h3>
@@ -462,7 +488,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/linen.jpg" alt="미색 모조 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/linen.jpg" alt="미색 모조 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/linen-back.jpg" alt="미색 모조 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>미색 모조</h3>
@@ -470,7 +496,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/forest.jpg" alt="숲초록 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/forest.jpg" alt="숲초록 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/forest-back.jpg" alt="숲초록 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>숲초록</h3>
@@ -478,7 +504,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/burgundy.jpg" alt="버건디 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/burgundy.jpg" alt="버건디 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/burgundy-back.jpg" alt="버건디 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>버건디</h3>
@@ -486,7 +512,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/navy.jpg" alt="남색 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/navy.jpg" alt="남색 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/navy-back.jpg" alt="남색 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>남색</h3>
@@ -494,7 +520,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/ivory.jpg" alt="양피지 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/ivory.jpg" alt="양피지 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/ivory-back.jpg" alt="양피지 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>양피지</h3>
@@ -502,7 +528,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/terracotta.jpg" alt="황토 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/terracotta.jpg" alt="황토 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/terracotta-back.jpg" alt="황토 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>황토</h3>
@@ -510,7 +536,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/ink.jpg" alt="먹색 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/ink.jpg" alt="먹색 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/ink-back.jpg" alt="먹색 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>먹색</h3>
@@ -518,7 +544,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/slate.jpg" alt="회청 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/slate.jpg" alt="회청 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/slate-back.jpg" alt="회청 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>회청</h3>
@@ -526,7 +552,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/sand.jpg" alt="금모래 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/sand.jpg" alt="금모래 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/sand-back.jpg" alt="금모래 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>금모래</h3>
@@ -534,7 +560,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/plum.jpg" alt="보라 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/plum.jpg" alt="보라 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/plum-back.jpg" alt="보라 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>보라</h3>
@@ -542,7 +568,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="paper" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/fog.jpg" alt="안개회색 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/fog.jpg" alt="안개회색 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/fog-back.jpg" alt="안개회색 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">배경지</div>
           <h3>안개회색</h3>
@@ -550,7 +576,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="dept" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/youth.jpg" alt="청년부 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/youth.jpg" alt="청년부 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/youth-back.jpg" alt="청년부 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">부서 배경</div>
           <h3>청년부</h3>
@@ -558,7 +584,7 @@
         </div>
       </a>
       <a class="tpl-card" data-cat="dept" href="request.html">
-        <div class="tpl-thumb"><img src="assets/templates/children.jpg" alt="아동부 배경지"></div>
+        <div class="tpl-thumb tpl-pair"><span class="tpl-face"><img src="assets/templates/children.jpg" alt="아동부 배경지 앞면"><i>앞면</i></span><span class="tpl-face"><img src="assets/templates/children-back.jpg" alt="아동부 배경지 뒷면"><i>뒷면</i></span></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">부서 배경</div>
           <h3>아동부</h3>
@@ -574,7 +600,7 @@
         </div>
       </a>
     </div>
-    <p class="tpl-note">교단 주보와 큐카드는 실제 출력본입니다. 절기·배경지는 프로그램에 들어 있는 같은 그림입니다. 진한 색은 띠와 테두리로만 들어가 글씨가 읽힙니다. 카드를 누르면 먼저 크게 볼 수 있습니다.</p>
+    <p class="tpl-note">교단 주보와 큐카드는 실제 출력본입니다. 절기·배경지는 앞면과 뒷면이 한 쌍이며, 프로그램에도 그대로 들어 있습니다. 연한 칸은 자리 안내선이라 글씨를 가리지 않습니다.</p>
   </div>
 </section>
 
@@ -674,8 +700,15 @@
   <div class="tpl-lightbox-backdrop" data-close="1"></div>
   <div class="tpl-lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="tplLbTitle">
     <button type="button" class="tpl-lightbox-close" data-close="1">닫기</button>
-    <div class="tpl-lightbox-figure">
-      <img id="tplLbImg" alt="">
+    <div class="tpl-lightbox-figure" id="tplLbFigure">
+      <figure id="tplLbFrontWrap">
+        <img id="tplLbImg" alt="">
+        <figcaption id="tplLbFrontCap">앞면</figcaption>
+      </figure>
+      <figure id="tplLbBackWrap" hidden>
+        <img id="tplLbImgBack" alt="">
+        <figcaption>뒷면</figcaption>
+      </figure>
       <div id="tplLbFallback" class="tpl-type" hidden></div>
     </div>
     <div class="tpl-lightbox-copy">
@@ -737,15 +770,36 @@
       hint.textContent = '프로그램 배경지 목록에 같은 이름으로 들어 있습니다.';
     }
     apply.href = 'request.html?item=' + encodeURIComponent(name);
-    if(photo && photo.getAttribute('src')){
+    var figure = document.getElementById('tplLbFigure');
+    var backImg = document.getElementById('tplLbImgBack');
+    var backWrap = document.getElementById('tplLbBackWrap');
+    var frontCap = document.getElementById('tplLbFrontCap');
+    var faces = card.querySelectorAll('.tpl-pair img');
+    if(faces.length >= 2){
       img.hidden = false;
       fallback.hidden = true;
+      backWrap.hidden = false;
+      figure.classList.add('pair');
+      img.src = faces[0].getAttribute('src');
+      img.alt = faces[0].getAttribute('alt') || (name + ' 앞면');
+      backImg.src = faces[1].getAttribute('src');
+      backImg.alt = faces[1].getAttribute('alt') || (name + ' 뒷면');
+      frontCap.hidden = false;
+      hint.textContent = '프로그램에서 앞면·뒷면이 한 쌍으로 적용됩니다. 칸은 안내선이라 글씨를 가리지 않습니다.';
+    } else if(photo && photo.getAttribute('src')){
+      img.hidden = false;
+      fallback.hidden = true;
+      backWrap.hidden = true;
+      figure.classList.remove('pair');
       img.src = photo.getAttribute('src');
       img.alt = photo.getAttribute('alt') || name;
+      frontCap.hidden = true;
     } else {
       img.removeAttribute('src');
       img.hidden = true;
+      backWrap.hidden = true;
       fallback.hidden = false;
+      figure.classList.remove('pair');
       fallback.textContent = name;
       hint.textContent = '프로그램 안에 예배순서 프리셋이 있습니다. 인쇄 샘플 사진은 아직 없습니다.';
     }
