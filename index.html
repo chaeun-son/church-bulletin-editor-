@@ -168,8 +168,21 @@
 
 
   /* ---------- Templates ---------- */
+  .tpl-filters{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 22px;}
+  .tpl-filters button{
+    font-family:var(--sans); font-size:13px; font-weight:700;
+    border:1px solid var(--line); background:#fff; color:var(--forest-deep);
+    border-radius:999px; padding:7px 14px; cursor:pointer;
+  }
+  .tpl-filters button.is-on{background:var(--forest); color:#F3EEE0; border-color:var(--forest);}
+  .tpl-card.is-off{display:none;}
+  .tpl-thumb.tpl-type{
+    display:flex; align-items:center; justify-content:center;
+    background:var(--forest); color:#F3EEE0;
+    font-family:var(--serif); font-size:22px; font-weight:700;
+  }
   .tpl-grid{
-    display:grid; grid-template-columns:repeat(2,1fr); gap:22px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
   }
   .tpl-card{
     display:flex; flex-direction:column;
@@ -205,7 +218,8 @@
     .hero-inner{grid-template-columns:1fr;}
     .hero-art{order:-1;}
     h1{font-size:32px;}
-    .pain-list, .feature-grid, .steps, .tpl-grid{grid-template-columns:1fr;}
+    .pain-list, .feature-grid, .steps{grid-template-columns:1fr;}
+    .tpl-grid{grid-template-columns:1fr 1fr;}
     .cta-band{flex-direction:column; text-align:center; padding:40px 28px;}
     .cta-band .cta-right{width:100%;}
     .tpl-card.portrait .tpl-thumb{max-height:none;}
@@ -285,35 +299,123 @@
 <section id="templates">
   <div class="wrap">
     <div class="section-head">
-      <div class="section-eyebrow">템플릿</div>
-      <h2>교단에 맞는 주보부터 고르세요</h2>
+      <div class="section-eyebrow">템플릿 · 배경지</div>
+      <h2>골라 쓰는 재미가 있게</h2>
+    </div>
+    <div class="tpl-filters" role="tablist" aria-label="템플릿 분류">
+      <button type="button" class="is-on" data-filter="all">전체</button>
+      <button type="button" data-filter="denom">교단</button>
+      <button type="button" data-filter="season">절기</button>
+      <button type="button" data-filter="paper">배경지</button>
+      <button type="button" data-filter="dept">부서</button>
+      <button type="button" data-filter="card">큐카드</button>
     </div>
     <div class="tpl-grid">
-      <a class="tpl-card" href="request.html">
+      <a class="tpl-card" data-cat="denom" href="request.html">
         <div class="tpl-thumb"><img src="assets/templates/presbyterian.jpg" alt="장로교·개혁 3단 주보 겉면"></div>
         <div class="tpl-meta">
-          <div class="tpl-kicker">3단 주보</div>
+          <div class="tpl-kicker">교단 템플릿</div>
           <h3>장로교 · 개혁</h3>
           <p>묵도, 사도신경, 교독문이 들어간 기본 예배순서입니다.</p>
         </div>
       </a>
-      <a class="tpl-card" href="request.html">
+      <a class="tpl-card" data-cat="denom" href="request.html">
         <div class="tpl-thumb"><img src="assets/templates/baptist.jpg" alt="침례교·순복음 3단 주보 겉면"></div>
         <div class="tpl-meta">
-          <div class="tpl-kicker">3단 주보</div>
+          <div class="tpl-kicker">교단 템플릿</div>
           <h3>침례교 · 순복음</h3>
           <p>경배와 찬양, 특송이 있는 예배순서입니다.</p>
         </div>
       </a>
-      <a class="tpl-card" href="request.html">
+      <a class="tpl-card" data-cat="denom" href="request.html">
         <div class="tpl-thumb"><img src="assets/templates/simple.jpg" alt="소형교회 심플형 3단 주보 겉면"></div>
         <div class="tpl-meta">
-          <div class="tpl-kicker">3단 주보</div>
+          <div class="tpl-kicker">교단 템플릿</div>
           <h3>소형교회 심플형</h3>
           <p>짧은 순서만 남긴 작은 교회용 구성입니다.</p>
         </div>
       </a>
-      <a class="tpl-card portrait" href="request.html">
+      <a class="tpl-card" data-cat="denom" href="request.html">
+        <div class="tpl-thumb tpl-type">감리교 · 성결</div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">교단 템플릿</div>
+          <h3>감리교 · 성결</h3>
+          <p>프로그램 안에 예배순서 프리셋이 있습니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="season" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/christmas.jpg" alt="성탄절 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">절기 배경</div>
+          <h3>성탄절</h3>
+          <p>진한 숲초록과 금빛으로 맞춘 성탄 용지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="season" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/easter.jpg" alt="부활절 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">절기 배경</div>
+          <h3>부활절</h3>
+          <p>미색 용지에 부드러운 금을 올린 부활 용지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="season" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/thanksgiving.jpg" alt="추수감사절 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">절기 배경</div>
+          <h3>추수감사절</h3>
+          <p>밀짚색과 따뜻한 갈색의 감사절 용지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="season" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/newyear.jpg" alt="송구영신 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">절기 배경</div>
+          <h3>송구영신</h3>
+          <p>밤색 용지에 금빛 원을 올린 연말 용지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="paper" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/linen.jpg" alt="미색 모조 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">배경지</div>
+          <h3>미색 모조</h3>
+          <p>매주 쓰는 기본 용지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="paper" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/forest.jpg" alt="숲초록 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">배경지</div>
+          <h3>숲초록</h3>
+          <p>차분한 녹 배경지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="paper" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/burgundy.jpg" alt="버건디 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">배경지</div>
+          <h3>버건디</h3>
+          <p>절기에 쓰기 좋은 짙은 적갈색입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="dept" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/youth.jpg" alt="청년부 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">부서 배경</div>
+          <h3>청년부</h3>
+          <p>청록 배경지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="dept" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/children.jpg" alt="아동부 배경지"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">부서 배경</div>
+          <h3>아동부</h3>
+          <p>따뜻한 살구 용지입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" data-cat="card" href="request.html">
         <div class="tpl-thumb"><img src="assets/templates/cuecard.jpg" alt="A5 예배진행카드 1쪽"></div>
         <div class="tpl-meta">
           <div class="tpl-kicker">A5 큐카드</div>
@@ -322,16 +424,7 @@
         </div>
       </a>
     </div>
-    <div class="tpl-seasons">
-      <span class="label">절기 · 부서 배경</span>
-      <span class="tpl-chip">성탄절</span>
-      <span class="tpl-chip">부활절</span>
-      <span class="tpl-chip">추수감사절</span>
-      <span class="tpl-chip">송구영신</span>
-      <span class="tpl-chip">청년부</span>
-      <span class="tpl-chip">아동부</span>
-    </div>
-    <p class="tpl-note">감리교·성결 예배순서도 프로그램 안에 있습니다. 카드를 누르면 시리얼 신청으로 이어집니다.</p>
+    <p class="tpl-note">교단 주보와 큐카드는 실제 출력본입니다. 절기·배경지는 고르는 미리보기라, 프로그램 안 그림과 조금 다를 수 있습니다. 카드를 누르면 시리얼 신청으로 이어집니다.</p>
   </div>
 </section>
 
@@ -424,6 +517,24 @@
     <span><a href="privacy.html">개인정보 처리방침</a> · Windows 10 / 11 전용</span>
   </div>
 </footer>
+
+
+<script>
+(function(){
+  var box = document.querySelector('.tpl-filters');
+  if(!box) return;
+  box.addEventListener('click', function(e){
+    var btn = e.target.closest('button[data-filter]');
+    if(!btn) return;
+    var f = btn.getAttribute('data-filter');
+    box.querySelectorAll('button').forEach(function(b){ b.classList.toggle('is-on', b===btn); });
+    document.querySelectorAll('.tpl-card').forEach(function(card){
+      var on = f==='all' || card.getAttribute('data-cat')===f;
+      card.classList.toggle('is-off', !on);
+    });
+  });
+})();
+</script>
 
 </body>
 </html>
