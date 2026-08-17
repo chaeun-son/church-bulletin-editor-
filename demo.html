@@ -1,629 +1,191 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>교회 주보편집기 - 웹 데모</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>교회 주보편집기 V4.7.0 - 웹 데모</title>
 <style>
-:root {
-  --bg: #faf9f4;
-  --card: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --accent: #297a2e;
-  --accent-soft: rgba(41,122,46,.14);
-  --accent2: #d97706;
-  --accent2-soft: rgba(217,119,6,.14);
-  --border: rgba(15,23,42,.08);
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: 'Fredoka', sans-serif;
-  background: radial-gradient(1000px 500px at 10% -10%, var(--accent-soft), transparent 60%), var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-}
-.reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeUp .6s ease forwards;
-}
-.reveal:nth-child(2) { animation-delay: .1s; }
-.reveal:nth-child(3) { animation-delay: .2s; }
-.reveal:nth-child(4) { animation-delay: .3s; }
-@keyframes fadeUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-.template-card {
-  transition: all .25s ease;
-  cursor: pointer;
-}
-.template-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(0,0,0,.1);
-}
-.template-card.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent), 0 8px 24px var(--accent-soft);
-}
-.bg-chip {
-  transition: all .2s ease;
-  cursor: pointer;
-  border: 3px solid transparent;
-}
-.bg-chip:hover {
-  transform: scale(1.08);
-}
-.bg-chip.active {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-.bulletin-preview {
-  font-family: 'Noto Serif KR', serif;
-  box-shadow: 0 20px 60px rgba(0,0,0,.15), 0 2px 8px rgba(0,0,0,.08);
-}
-.input-field {
-  transition: border-color .2s ease, box-shadow .2s ease;
-  width: 100%;
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  color: var(--text);
-  font-size: 14px;
-  font-family: inherit;
-}
-.input-field:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
-}
-.step-indicator {
-  transition: all .3s ease;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 14px;
-  background: var(--accent-soft);
-  color: var(--muted);
-}
-.step-indicator.active {
-  background: var(--accent);
-  color: #fff;
-}
-.step-indicator.done {
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-  transition: all .2s ease;
-  font-weight: 600;
-  padding: 12px 20px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  font-family: inherit;
-}
-.btn-primary:hover {
-  background: #1f5f23;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(41,122,46,.3);
-}
-.btn-secondary {
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--text);
-  transition: all .2s ease;
-  padding: 12px 20px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 14px;
-  font-family: inherit;
-}
-.btn-secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .4; }
-}
-.pulse-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2s infinite;
-}
-.worship-type-btn {
-  padding: 8px 14px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  cursor: pointer;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--muted);
-  transition: all .2s ease;
-}
-.worship-type-btn.active {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 600;
-}
+:root{--green:#173b3b;--green2:#2d5c58;--line:#d8dde2;--bg:#eef0f2;--text:#263238;--blue:#1470c9;--panel:#fff;--warn:#b76b19}
+*{box-sizing:border-box} html,body{height:100%;margin:0;font-family:"Malgun Gothic","Noto Sans KR",sans-serif;color:var(--text);background:#f4f5f7;overflow:hidden}
+button,input,select,textarea{font:inherit}
+.app{height:100vh;display:flex;flex-direction:column;min-width:1180px}
+.menubar{height:34px;background:#fff;border-bottom:1px solid #dde1e6;display:flex;align-items:center;padding:0 10px;gap:2px;flex:0 0 auto}
+.menu{border:0;background:transparent;padding:6px 11px;border-radius:3px;cursor:pointer}.menu:hover{background:#eef3f7}
+.brand{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:#59636b}.brand img{width:22px;height:22px;border-radius:5px}.demo-chip{background:#fff4df;color:#8a4b08;border:1px solid #efd2a5;padding:3px 8px;border-radius:999px;font-weight:700}
+.toolbar{height:74px;background:#fff;border-bottom:1px solid #d9dde2;display:flex;align-items:stretch;padding:4px 8px;gap:2px;overflow-x:auto;flex:0 0 auto}
+.tool{min-width:68px;border:1px solid transparent;background:transparent;border-radius:4px;padding:5px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:#222;font-size:11px;white-space:nowrap}.tool:hover{background:#f1f5f8;border-color:#d9e0e6}.tool .ico{font-size:23px;line-height:1}.sep{width:1px;background:#dde1e6;margin:7px 5px}
+.workspace{flex:1;display:grid;grid-template-columns:350px minmax(620px,1fr) 300px;min-height:0}
+.left{background:#fff;border-right:1px solid var(--line);display:grid;grid-template-columns:82px 1fr;min-width:0}.navrail{background:var(--green);padding:8px 0;display:flex;flex-direction:column;gap:3px}.navbtn{height:68px;border:0;border-left:4px solid transparent;background:transparent;color:#f3f8f7;padding:8px 2px;font-size:12px;cursor:pointer}.navbtn:hover{background:#224c4b}.navbtn.active{background:var(--green2);border-left-color:#e8f3ef;font-weight:700}.nav-spacer{flex:1}.navbtn.settings{height:60px}
+.context{overflow:auto;background:#fff;padding:12px}.panel{display:none}.panel.active{display:block}.panel h2{font-size:16px;margin:0 0 12px}.panel p.note{font-size:12px;color:#59636b;line-height:1.55;margin:0 0 12px}.group{border:1px solid #dfe3e6;border-radius:5px;margin:0 0 12px;padding:13px 10px 10px;position:relative}.group>strong{position:absolute;top:-9px;left:9px;background:#fff;padding:0 4px;font-size:12px;color:#3e454c}.row{display:flex;gap:7px;margin:7px 0}.field{width:100%;border:1px solid #cfd5da;border-radius:4px;padding:7px;background:#fff}.btn{background:#fff;border:1px solid #cfd6dc;border-radius:4px;padding:7px 9px;cursor:pointer}.btn:hover{background:#f4f8fa;border-color:#aebcc6}.btn.primary{background:#2d5c58;color:#fff;border-color:#2d5c58}.btn.danger{color:#a12b2b;border-color:#d8b4b4}.preset{width:100%;text-align:left;margin:5px 0;padding:9px;border:1px solid #d7dde1;border-radius:4px;background:#fff;cursor:pointer}.preset:hover,.preset.selected{background:#eef5f2;border-color:#9ebbb4}.preset b{display:block;font-size:12px}.preset span{display:block;font-size:11px;color:#66736d;margin-top:3px}.themegrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.theme{border:1px solid #d7dde1;border-radius:5px;overflow:hidden;background:#fff;cursor:pointer;padding:0}.theme img{width:100%;height:66px;object-fit:cover;display:block}.theme span{display:block;padding:5px;font-size:11px}.list{border:1px solid #d7dde1;border-radius:4px;background:#fff;overflow:hidden}.listitem{padding:8px 9px;border-bottom:1px solid #edf0f2;font-size:12px;cursor:pointer}.listitem:last-child{border-bottom:0}.listitem.active{background:#edf6f2;color:#24584e;font-weight:700}
+.center{background:var(--bg);display:flex;flex-direction:column;min-width:0;min-height:0}.doctabs{height:40px;background:#fff;border-bottom:1px solid var(--line);padding:5px 8px;display:flex;align-items:center;gap:6px}.doctab{background:#f7f8fa;border:1px solid #d9dee3;border-bottom:2px solid #2c7a6b;border-radius:4px;padding:7px 14px;font-weight:600;font-size:12px}.plus{width:30px;height:28px;padding:0}
+.canvasbar{height:42px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:5px 8px;gap:6px;font-size:12px}.canvasbar .grow{flex:1}.zoomlabel{min-width:54px;text-align:center;color:#4f5b61}.fitstatus{padding:5px 8px;border-radius:4px;background:#edf6ef;color:#315f4e}
+.viewport{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:28px;background:#d5d7da;position:relative}.paper-wrap{transform-origin:center center;transition:transform .15s}.paper{position:relative;width:min(1040px,74vw);aspect-ratio:1600/1131;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 4px 22px rgba(0,0,0,.28);border:1px solid #b6b8bb;overflow:hidden}.fold{position:absolute;top:0;bottom:0;width:0;border-left:1px dashed rgba(180,145,85,.48);pointer-events:none}.fold.f1{left:33.333%}.fold.f2{left:66.666%}
+.obj{position:absolute;min-width:36px;min-height:24px;border:1px solid transparent;padding:4px 6px;overflow:hidden;white-space:pre-wrap;line-height:1.35;outline:none;cursor:text}.obj:hover{border-color:#54a0e8}.obj.selected{border:2px solid #1470c9;box-shadow:0 0 0 1px rgba(20,112,201,.12)}.obj.dragging{cursor:move}.obj.title{font-weight:700;text-align:center;border-radius:8px;color:#fff}.obj.text{color:#3f3026}.obj.contact{background:rgba(234,240,213,.92);border-radius:10px;font-weight:700}.obj.centered{text-align:center}.photo-object{position:absolute;border:2px solid transparent;background-size:cover;background-position:center}.photo-object.selected{border-color:#1470c9}.resize-dot{display:none;position:absolute;width:8px;height:8px;background:#fff;border:1px solid #1470c9}.selected .resize-dot{display:block}.rd-br{right:-5px;bottom:-5px;cursor:nwse-resize}
+.right{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.rtitle{padding:13px 12px;font-weight:700;font-size:15px;border-bottom:1px solid #dfe3e7}.rtabs{height:36px;border-bottom:1px solid #dfe3e7;display:flex}.rtab{flex:1;border:0;background:#fff;color:#555;cursor:pointer}.rtab.active{color:var(--blue);border-bottom:2px solid var(--blue);font-weight:600}.rscroll{overflow:auto;padding:12px;flex:1}.formrow{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:7px;margin:7px 0;font-size:12px}.mini{padding:6px;border:1px solid #cfd5da;border-radius:4px;width:100%;min-width:0}.check{display:flex;gap:7px;align-items:center;font-size:12px;margin:7px 0}.hint{color:#5d6772;font-size:11px;line-height:1.45}.statusbar{height:28px;background:#fff;border-top:1px solid var(--line);display:flex;align-items:center;padding:0 10px;font-size:11px;color:#4d535a;gap:18px;flex:0 0 auto}.statusbar .msg{margin-right:auto}.modalback{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:50;align-items:center;justify-content:center}.modalback.show{display:flex}.modal{width:420px;background:#fff;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}.modal h3{margin:0 0 10px}.modal p{font-size:13px;line-height:1.55;color:#4f5b61}.modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+@media(max-width:1350px){.workspace{grid-template-columns:330px minmax(590px,1fr) 285px}.paper{width:900px}}
 </style>
 </head>
 <body>
-
-<div class="max-w-7xl mx-auto px-4 py-8 md:px-6 md:py-10">
-
-  <!-- Header -->
-  <div class="reveal mb-8 md:mb-10">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;">
-      <div style="width:48px;height:48px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-      </div>
-      <div>
-        <p style="font-family:monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);font-weight:600;margin:0;">Web Demo · 체험판</p>
-        <h1 style="font-size:24px;font-weight:700;margin:4px 0 0;letter-spacing:-0.02em;line-height:1.2;">교회 주보편집기 — 웹으로 미리 써보기</h1>
-      </div>
-    </div>
-    <p style="color:var(--muted);max-width:640px;line-height:1.7;margin:8px 0 0;font-size:15px;">설치 없이 브라우저에서 바로 주보를 만들어보세요. 교단 템플릿과 배경지를 선택하고 내용을 입력하면, 실시간으로 3단 주보가 완성됩니다.</p>
+<div class="app">
+  <div class="menubar">
+    <button class="menu">파일</button><button class="menu">편집</button><button class="menu">보기</button><button class="menu">삽입</button><button class="menu">도구</button><button class="menu">도움말</button>
+    <div class="brand"><span class="demo-chip">WEB DEMO</span><img src="demo_assets/app_icon.png" alt=""><b>주보편집기 V4.7.0</b></div>
+  </div>
+  <div class="toolbar">
+    <button class="tool" data-demo="new"><span class="ico">📄</span>새로 만들기</button>
+    <button class="tool" data-demo="open"><span class="ico">📂</span>불러오기</button>
+    <button class="tool" id="saveLocal"><span class="ico">💾</span>저장</button>
+    <div class="sep"></div>
+    <button class="tool locked"><span class="ico">📑</span>PDF 출력</button>
+    <button class="tool locked"><span class="ico">🏭</span>인쇄소 PDF</button>
+    <button class="tool locked"><span class="ico">🖨️</span>인쇄</button>
+    <button class="tool" id="fitBtn"><span class="ico">🔎</span>화면 맞춤</button>
+    <div class="sep"></div>
+    <button class="tool" id="prevPage"><span class="ico">◀</span>이전 면</button>
+    <button class="tool" id="nextPage"><span class="ico">▶</span>다음 면</button>
+    <div class="sep"></div>
+    <button class="tool locked"><span class="ico">🎴</span>예배진행 카드</button>
+    <button class="tool locked"><span class="ico">📚</span>예배자료실</button>
+    <div class="sep"></div>
+    <button class="tool" id="addText"><span class="ico">T</span>텍스트</button>
+    <button class="tool locked"><span class="ico">🖼️</span>이미지</button>
+    <button class="tool locked"><span class="ico">✚</span>아이콘</button>
+    <button class="tool locked"><span class="ico">▭</span>사각형</button>
+    <button class="tool locked"><span class="ico">▦</span>표</button>
   </div>
 
-  <!-- Step Indicators -->
-  <div class="reveal flex items-center justify-center gap-2 mb-8 flex-wrap">
-    <div class="step-indicator active" id="step1">1</div>
-    <div style="width:30px;height:2px;background:var(--border);"></div>
-    <div class="step-indicator" id="step2">2</div>
-    <div style="width:30px;height:2px;background:var(--border);"></div>
-    <div class="step-indicator" id="step3">3</div>
-    <div style="width:30px;height:2px;background:var(--border);"></div>
-    <div class="step-indicator" id="step4">4</div>
+  <div class="workspace">
+    <section class="left">
+      <div class="navrail">
+        <button class="navbtn active" data-panel="templates">템플릿</button>
+        <button class="navbtn" data-panel="pages">페이지</button>
+        <button class="navbtn" data-panel="backgrounds">배경지</button>
+        <button class="navbtn" data-panel="clipart">클립아트</button>
+        <button class="navbtn" data-panel="fonts">글꼴</button>
+        <button class="navbtn" data-panel="saved">저장된 항목</button>
+        <button class="navbtn" data-panel="library">예배자료실</button>
+        <div class="nav-spacer"></div>
+        <button class="navbtn settings" data-panel="settings">환경설정</button>
+      </div>
+      <div class="context">
+        <div class="panel active" id="panel-templates">
+          <h2>교회주보 템플릿</h2><p class="note">정식 프로그램과 동일한 화면 배치를 사용하고 예배 순서 내용만 교단별로 바꿉니다.</p>
+          <button class="preset selected"><b>장로교 · 개혁교회 표준형</b><span>묵도·신앙고백·교독문·대표기도 중심</span></button>
+          <button class="preset"><b>감리교 · 성결교 표준형</b><span>예배 순서 내용만 변경</span></button>
+          <button class="preset"><b>침례교 · 순복음 표준형</b><span>경배와 찬양 중심</span></button>
+          <button class="preset"><b>소형교회 심플형</b><span>짧은 순서 중심</span></button>
+          <div class="group" style="margin-top:18px"><strong>기준 템플릿</strong><button class="btn" style="width:100%" id="resetBtn">기준 원본주보로 복원</button></div>
+        </div>
+        <div class="panel" id="panel-pages"><h2>페이지</h2><p class="note">주보는 바깥면과 안쪽면으로 관리합니다.</p><div class="list"><div class="listitem active" data-page="outside">1. 앞면 / 바깥면 / 표지</div><div class="listitem" data-page="inside">2. 뒷면 / 안쪽면</div></div></div>
+        <div class="panel" id="panel-backgrounds"><h2>배경지</h2><p class="note">정식 V4.7.0에 포함된 배경지 중 일부를 웹 데모에서 미리 적용할 수 있습니다.</p><div class="themegrid" id="themeGrid"></div></div>
+        <div class="panel" id="panel-clipart"><h2>클립아트</h2><p class="note">정식판에서는 예배·기도·성경·헌금 등 내장 아이콘을 배치할 수 있습니다.</p><div class="row"><button class="btn locked">✝ 십자가</button><button class="btn locked">📖 성경</button></div><div class="row"><button class="btn locked">🙏 기도</button><button class="btn locked">👥 성도</button></div></div>
+        <div class="panel" id="panel-fonts"><h2>글꼴</h2><div class="group"><strong>선택 개체</strong><select class="field" id="fontFamily"><option>Malgun Gothic</option><option>Batang</option><option>Gulim</option><option>Arial</option></select><div class="row"><button class="btn" id="fontDown">A−</button><button class="btn" id="fontUp">A＋</button><button class="btn" id="boldBtn"><b>B</b></button></div></div></div>
+        <div class="panel" id="panel-saved"><h2>저장된 항목</h2><p class="note">웹 데모에서는 현재 브라우저에 임시 저장됩니다. 정식판은 프로젝트(.cbp)와 자동저장을 지원합니다.</p><button class="btn" style="width:100%" id="loadLocal">브라우저 임시저장 불러오기</button></div>
+        <div class="panel" id="panel-library"><h2>예배자료실</h2><p class="note">성경·찬송가·찬양집 자료 관리 기능은 정식 Windows 프로그램에서 사용할 수 있습니다.</p><button class="btn locked" style="width:100%">예배자료실 열기</button></div>
+        <div class="panel" id="panel-settings"><h2>환경설정</h2><div class="group"><strong>편집 화면</strong><label class="check"><input type="checkbox" id="guideToggle" checked> 접힘선 / 안전여백 가이드 표시</label><label class="check"><input type="checkbox" checked> 같은 단 안 자유 배치</label></div><div class="group"><strong>웹 데모 안내</strong><p class="note">PDF 출력, 인쇄소용 PDF, 예배진행 카드, 예배자료실은 정식판에서 제공됩니다.</p></div></div>
+      </div>
+    </section>
+
+    <main class="center">
+      <div class="doctabs"><div class="doctab">우리교회 주보</div><button class="btn plus locked">+</button></div>
+      <div class="canvasbar"><button class="btn" id="zoomOut">−</button><span class="zoomlabel" id="zoomLabel">78%</span><button class="btn" id="zoomIn">＋</button><button class="btn" id="fitSmall">화면 맞춤</button><div class="grow"></div><span class="fitstatus" id="selStatus">개체를 클릭해 직접 수정하세요</span></div>
+      <div class="viewport" id="viewport"><div class="paper-wrap" id="paperWrap"><div class="paper" id="paper"><div class="fold f1"></div><div class="fold f2"></div></div></div></div>
+    </main>
+
+    <aside class="right">
+      <div class="rtitle">속성</div><div class="rtabs"><button class="rtab active">개체</button><button class="rtab">페이지</button></div>
+      <div class="rscroll">
+        <div class="group"><strong>선택 개체</strong><div class="formrow"><label>요소 이름</label><input class="mini" id="propName" value="선택 없음"></div><div class="formrow"><label>역할</label><input class="mini" id="propRole" value="-"></div><label class="check"><input type="checkbox" id="propLock"> 잠금</label></div>
+        <div class="group"><strong>위치 / 크기</strong><div class="formrow"><label>소속 단</label><select class="mini" id="propPanel"><option>1단</option><option>2단</option><option>3단</option></select></div><div class="formrow"><label>X</label><input class="mini" type="number" id="propX"></div><div class="formrow"><label>Y</label><input class="mini" type="number" id="propY"></div><div class="formrow"><label>너비</label><input class="mini" type="number" id="propW"></div><div class="formrow"><label>높이</label><input class="mini" type="number" id="propH"></div></div>
+        <div class="group"><strong>텍스트</strong><div class="formrow"><label>크기</label><input class="mini" type="number" id="propFont" value="16"></div><div class="formrow"><label>글자색</label><input class="mini" type="color" id="propColor" value="#3f3026"></div><label class="check"><input type="checkbox" id="propBold"> 굵게</label></div>
+        <p class="hint">TIP  웹 데모에서도 글자를 직접 클릭해 수정할 수 있습니다. 정식판에서는 파란 조절점 8개, 표 편집, 이미지 교체, 자동맞춤 등 전체 기능을 사용할 수 있습니다.</p>
+        <button class="btn danger" id="deleteObj" style="width:100%;margin-top:10px">선택 요소 삭제</button>
+      </div>
+    </aside>
   </div>
-
-  <!-- Main Content -->
-  <div class="grid grid-cols-1 lg:grid-cols-5 gap-5 md:gap-6">
-
-    <!-- Left: Controls -->
-    <div class="lg:col-span-2 space-y-5">
-
-      <!-- Step 1: Template Selection -->
-      <div class="reveal rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:13px;">1</div>
-          <h2 style="font-size:17px;font-weight:600;margin:0;">교단 템플릿 선택</h2>
-        </div>
-        <div class="grid grid-cols-2 gap-3" id="templateGrid">
-          <div class="template-card active rounded-xl p-4 text-center" style="background:#f8fafb;border:2px solid var(--border);" data-template="reformed_standard" onclick="selectTemplate(this,'reformed_standard')">
-            <div style="font-size:26px;margin-bottom:4px;">⛪</div>
-            <div style="font-weight:600;font-size:13px;">장로교·개혁</div>
-            <div style="font-size:11px;margin-top:3px;color:var(--muted);">전통적 3단 구성</div>
-          </div>
-          <div class="template-card rounded-xl p-4 text-center" style="background:#f8fafb;border:2px solid var(--border);" data-template="methodist_holiness" onclick="selectTemplate(this,'methodist_holiness')">
-            <div style="font-size:26px;margin-bottom:4px;">✝️</div>
-            <div style="font-weight:600;font-size:13px;">감리교·성결</div>
-            <div style="font-size:11px;margin-top:3px;color:var(--muted);">은혜 중심 양식</div>
-          </div>
-          <div class="template-card rounded-xl p-4 text-center" style="background:#f8fafb;border:2px solid var(--border);" data-template="baptist_contemporary" onclick="selectTemplate(this,'baptist_contemporary')">
-            <div style="font-size:26px;margin-bottom:4px;">🕊️</div>
-            <div style="font-weight:600;font-size:13px;">침례교·순복음</div>
-            <div style="font-size:11px;margin-top:3px;color:var(--muted);">경배와 찬양</div>
-          </div>
-          <div class="template-card rounded-xl p-4 text-center" style="background:#f8fafb;border:2px solid var(--border);" data-template="small_church_simple" onclick="selectTemplate(this,'small_church_simple')">
-            <div style="font-size:26px;margin-bottom:4px;">📖</div>
-            <div style="font-weight:600;font-size:13px;">소형교회 심플</div>
-            <div style="font-size:11px;margin-top:3px;color:var(--muted);">깔끔한 기본형</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Worship Type -->
-      <div class="reveal rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--accent2-soft);display:flex;align-items:center;justify-content:center;color:var(--accent2);font-weight:700;font-size:13px;">·</div>
-          <h2 style="font-size:17px;font-weight:600;margin:0;">예배 종류</h2>
-        </div>
-        <div class="flex flex-wrap gap-2" id="worshipTypeBtns">
-          <button class="worship-type-btn active" data-type="주일오전예배" onclick="selectWorshipType(this,'주일오전예배')">주일오전</button>
-          <button class="worship-type-btn" data-type="주일오후예배" onclick="selectWorshipType(this,'주일오후예배')">주일오후</button>
-          <button class="worship-type-btn" data-type="수요저녁예배" onclick="selectWorshipType(this,'수요저녁예배')">수요저녁</button>
-          <button class="worship-type-btn" data-type="새벽예배" onclick="selectWorshipType(this,'새벽예배')">새벽</button>
-          <button class="worship-type-btn" data-type="금요기도회" onclick="selectWorshipType(this,'금요기도회')">금요기도회</button>
-        </div>
-      </div>
-
-      <!-- Step 2: Background Selection -->
-      <div class="reveal rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:13px;">2</div>
-          <h2 style="font-size:17px;font-weight:600;margin:0;">절기·배경지 선택</h2>
-        </div>
-        <div class="grid grid-cols-6 gap-2" id="bgGrid"></div>
-        <p style="font-size:12px;margin:10px 0 0;color:var(--muted);">총 22종 배경지 중 대표 12종을 데모에서 만나보세요</p>
-      </div>
-
-      <!-- Step 3: Content Input -->
-      <div class="reveal rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:13px;">3</div>
-          <h2 style="font-size:17px;font-weight:600;margin:0;">주보 내용 입력</h2>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:12px;">
-          <div>
-            <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">교회명</label>
-            <input type="text" class="input-field" value="은혜교회" id="churchName" oninput="updatePreview()">
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div>
-              <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">예배일자</label>
-              <input type="text" class="input-field" value="2026년 8월 17일" id="worshipDate" oninput="updatePreview()">
-            </div>
-            <div>
-              <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">담임목사</label>
-              <input type="text" class="input-field" value="김은혜 목사" id="pastor" oninput="updatePreview()">
-            </div>
-          </div>
-          <div>
-            <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">설교 제목</label>
-            <input type="text" class="input-field" value="주님의 은혜 가운데" id="sermonTitle" oninput="updatePreview()">
-          </div>
-          <div>
-            <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">본문 말씀</label>
-            <input type="text" class="input-field" value="에베소서 2:8-9" id="bibleVerse" oninput="updatePreview()">
-          </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div>
-              <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">대표 기도</label>
-              <input type="text" class="input-field" value="장로 이사랑" id="prayer" oninput="updatePreview()">
-            </div>
-            <div>
-              <label style="display:block;font-size:11px;font-weight:600;margin-bottom:5px;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;">헌금 기도</label>
-              <input type="text" class="input-field" value="권사 박소망" id="offering" oninput="updatePreview()">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 4: CTA -->
-      <div class="reveal rounded-2xl p-5" style="background:linear-gradient(135deg,var(--accent-soft),var(--accent2-soft));border:1px solid var(--border);">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-          <div style="width:28px;height:28px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:13px;">4</div>
-          <h2 style="font-size:17px;font-weight:600;margin:0;">마음에 드시나요?</h2>
-        </div>
-        <p style="font-size:13px;margin:0 0 14px;color:var(--muted);line-height:1.6;">정식 버전에서는 PDF 저장·고해상도 출력·큐카드 생성·이어쓰기 등 모든 기능을 사용하실 수 있습니다.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;">
-          <button class="btn-primary" onclick="showApply()">📝 정식 사용 신청하기</button>
-          <button class="btn-secondary" onclick="showStore()">🪟 MS 스토어에서 설치</button>
-        </div>
-        <p style="font-size:12px;margin:10px 0 0;color:var(--muted);">교회명과 이메일만으로 간단히 신청하실 수 있습니다</p>
-      </div>
-
-    </div>
-
-    <!-- Right: Preview -->
-    <div class="lg:col-span-3">
-      <div class="reveal rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.04);">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <div style="width:28px;height:28px;border-radius:8px;background:var(--accent2-soft);display:flex;align-items:center;justify-content:center;color:var(--accent2);">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            </div>
-            <h2 style="font-size:17px;font-weight:600;margin:0;">실시간 주보 미리보기</h2>
-          </div>
-          <div style="display:flex;gap:6px;align-items:center;">
-            <button class="btn-secondary" style="padding:6px 12px;font-size:12px;" onclick="zoomPreview(-0.1)">−</button>
-            <span style="font-size:12px;color:var(--muted);" id="zoomLevel">100%</span>
-            <button class="btn-secondary" style="padding:6px 12px;font-size:12px;" onclick="zoomPreview(0.1)">+</button>
-          </div>
-        </div>
-
-        <!-- Bulletin Preview Container -->
-        <div style="background:#e8e4dc;border-radius:12px;padding:16px;overflow:auto;max-height:780px;" id="previewContainer">
-          <div class="bulletin-preview mx-auto" id="bulletinPreview" style="width:100%;max-width:580px;aspect-ratio:1/1.414;border-radius:3px;position:relative;overflow:hidden;"></div>
-        </div>
-
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;">
-          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-            A4 규격 · 3단 접이식 · 안전영역 자동 검증
-          </div>
-          <div style="font-size:12px;color:var(--accent);font-weight:600;">
-            <span class="pulse-dot" style="margin-right:6px;"></span>
-            실시간 연동 중
-          </div>
-        </div>
-      </div>
-
-      <!-- Info Cards -->
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;">
-        <div class="reveal rounded-xl p-4 text-center" style="background:var(--card);border:1px solid var(--border);">
-          <div style="font-size:22px;font-weight:700;color:var(--accent);">4</div>
-          <div style="font-size:11px;margin-top:3px;color:var(--muted);">교단 템플릿</div>
-        </div>
-        <div class="reveal rounded-xl p-4 text-center" style="background:var(--card);border:1px solid var(--border);">
-          <div style="font-size:22px;font-weight:700;color:var(--accent2);">22</div>
-          <div style="font-size:11px;margin-top:3px;color:var(--muted);">절기·배경지</div>
-        </div>
-        <div class="reveal rounded-xl p-4 text-center" style="background:var(--card);border:1px solid var(--border);">
-          <div style="font-size:22px;font-weight:700;color:var(--text);">3단</div>
-          <div style="font-size:11px;margin-top:3px;color:var(--muted);">접이식 주보</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Footer -->
-  <div style="margin-top:48px;padding-top:16px;text-align:center;border-top:1px solid var(--border);">
-    <p style="font-size:12px;color:var(--muted);margin:0;">© 2026 교회 주보편집기 V4.7.0 · MS 스토어 심사 중 · Windows 10/11 지원</p>
-  </div>
-
+  <div class="statusbar"><span class="msg" id="statusMsg">앞면·뒷면 기준 원본주보 템플릿 로드</span><span id="statusPage">페이지: 1 / 2</span><span>용지: A4</span><span>방향: 가로</span><span>여백: 없음(전체면)</span></div>
 </div>
-
+<div class="modalback" id="modal"><div class="modal"><h3>웹 데모 기능입니다</h3><p id="modalText">이 기능은 정식 Windows 프로그램에서 사용할 수 있습니다.</p><div class="actions"><button class="btn" id="modalClose">계속 체험하기</button><button class="btn primary" onclick="location.href='index.html#download'">정식 버전 보기</button></div></div></div>
 <script>
-var state = {
-  template: 'reformed_standard',
-  worshipType: '주일오전예배',
-  bg: 'linen',
-  zoom: 1
+const BASE_W=1600, BASE_H=1131;
+const paper=document.getElementById('paper'),wrap=document.getElementById('paperWrap');
+let currentPage='outside',zoom=.78,selected=null,drag=null;
+const state={outside:[],inside:[]};
+const themePairs={
+  '기본':{outside:'demo_assets/church_outside.png',inside:'demo_assets/church_inside.png'},
+  '성탄절':{outside:'demo_assets/templates/christmas_outside_bg.jpg',inside:'demo_assets/templates/christmas_inside_bg.jpg'},
+  '부활절':{outside:'demo_assets/templates/easter_outside_bg.jpg',inside:'demo_assets/templates/easter_inside_bg.jpg'},
+  '추수감사':{outside:'demo_assets/templates/thanksgiving_outside_bg.jpg',inside:'demo_assets/templates/thanksgiving_inside_bg.jpg'},
+  '봄':{outside:'demo_assets/templates/spring_outside_bg.jpg',inside:'demo_assets/templates/spring_inside_bg.jpg'},
+  '여름':{outside:'demo_assets/templates/summer_outside_bg.jpg',inside:'demo_assets/templates/summer_inside_bg.jpg'},
+  '가을':{outside:'demo_assets/templates/autumn_outside_bg.jpg',inside:'demo_assets/templates/autumn_inside_bg.jpg'},
+  '겨울':{outside:'demo_assets/templates/winter_outside_bg.jpg',inside:'demo_assets/templates/winter_inside_bg.jpg'},
+  '남색':{outside:'demo_assets/templates/navy_outside_bg.jpg',inside:'demo_assets/templates/navy_inside_bg.jpg'},
+  '버건디':{outside:'demo_assets/templates/burgundy_outside_bg.jpg',inside:'demo_assets/templates/burgundy_inside_bg.jpg'},
+  '숲초록':{outside:'demo_assets/templates/forest_outside_bg.jpg',inside:'demo_assets/templates/forest_inside_bg.jpg'},
+  '청년부':{outside:'demo_assets/templates/youth_outside_bg.jpg',inside:'demo_assets/templates/youth_inside_bg.jpg'}
 };
+let currentTheme='기본';
+function pct(v,b){return (v/b*100)+'%'}
+function addObj(page,o){state[page].push({...o,id:crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)})}
+function seed(){
+  state.outside=[];state.inside=[];
+  addObj('outside',{name:'광고',role:'title',x:140,y:55,w:260,h:50,text:'광 고',fs:25,bold:true,fill:'#801411',color:'#fff',cls:'title'});
+  addObj('outside',{name:'광고 내용',role:'content',x:45,y:125,w:440,h:585,text:'1) 환영합니다\n오늘 교회를 처음 방문하신 모든 분들을 주님의 이름으로 환영합니다.\n\n2) 성경읽기\n성경 읽기와 쓰기에 힘씀으로 하나님의 은혜를 깊이 체험하는 성도들이 됩시다.\n\n3) 이번 달 행사\n이번 달 진행되는 행사 안내를 입력하세요.\n\n4) 여름성경학교\n여름성경학교 알림과 준비사항을 입력하세요.\n\n5) 교사 헌신예배\n다음 주 주일 오후예배는 교사 헌신예배로 드려집니다.',fs:16,color:'#3f3026',cls:'text'});
+  addObj('outside',{name:'예배시간',role:'title',x:170,y:765,w:190,h:40,text:'예배시간',fs:18,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
+  addObj('outside',{name:'예배시간 내용',role:'schedule',x:45,y:815,w:440,h:215,text:'주일예배(1부)  .................  오전 11:00\n오후예배(주일)  .................  오후  2:20\n수요저녁예배    .................  오후  7:30\n새벽예배        .................  오전  5:00\n금요기도회      .................  오후  8:00\n유초등부예배    .................  오후  2:00\n학생청년예배    .................  오후  2:00',fs:14,color:'#3f3026',cls:'text'});
+  addObj('outside',{name:'교회 소개 제목',role:'title',x:595,y:70,w:410,h:90,text:'OO교회로\n여러분을 환영합니다!',fs:25,bold:true,color:'#315f4e',cls:'text centered'});
+  addObj('outside',{name:'교회 소개 내용',role:'content',x:575,y:225,w:445,h:610,text:'이곳에 우리 교회를 소개하는 문구를 입력하세요.\n\n교회의 설립 배경, 지향하는 신앙의 방향, 성도들에게 전하고 싶은 메시지 등을 자유롭게 작성하실 수 있습니다.\n\n이 텍스트 상자를 클릭하여 내용을 직접 수정해 주세요.',fs:16,color:'#3f3026',cls:'text'});
+  addObj('outside',{name:'호수',role:'issue',x:1230,y:100,w:250,h:36,text:'제 O권 O호',fs:17,color:'#3f3026',cls:'text centered'});
+  const d=new Date(); addObj('outside',{name:'발행일',role:'date',x:1230,y:150,w:250,h:36,text:`${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`,fs:17,color:'#3f3026',cls:'text centered'});
+  addObj('outside',{name:'교회 연락처',role:'contact',x:1085,y:900,w:495,h:190,text:'OO교회\n담임목사  성함을 입력하세요\n주소  주소를 입력하세요\n전화  000-000-0000   팩스 000-000-0000\n홈페이지  www.example.com',fs:15,bold:true,color:'#3f3026',cls:'contact'});
 
-// 22 background themes from actual program
-var bgThemes = [
-  { key: 'linen', name: '미색 모조', colors: ['#f4ede1', '#e8dcc8'], accent: '#8a7352', accent2: '#2c4c3e', text: '#3d2914', church: '#5c4a1f' },
-  { key: 'advent', name: '대림절', colors: ['#4a2f6b', '#3a2050'], accent: '#c5a050', accent2: '#c5a050', text: '#f5f0e6', church: '#ffffff' },
-  { key: 'christmas', name: '성탄절', colors: ['#c41e3a', '#a01830'], accent: '#ffd700', accent2: '#2f6335', text: '#fff8e7', church: '#ffffff' },
-  { key: 'easter', name: '부활절', colors: ['#fef3c7', '#fde68a'], accent: '#739b4a', accent2: '#5b91c8', text: '#3d5c1a', church: '#2e4d10' },
-  { key: 'thanksgiving', name: '추수감사절', colors: ['#daa520', '#cd853f'], accent: '#70833a', accent2: '#c56a18', text: '#3d2914', church: '#5c3a1f' },
-  { key: 'newyear', name: '송구영신', colors: ['#102d56', '#0a1d3a'], accent: '#c5a050', accent2: '#c5a050', text: '#ecf0f1', church: '#ffffff' },
-  { key: 'spring', name: '봄', colors: ['#ffe4e6', '#fbcfe8'], accent: '#d77f8e', accent2: '#799b55', text: '#5c2a3a', church: '#8b3a4a' },
-  { key: 'summer', name: '여름', colors: ['#dbeafe', '#bfdbfe'], accent: '#2d8fbd', accent2: '#3b9f8a', text: '#1e3a5f', church: '#1e40af' },
-  { key: 'autumn', name: '가을', colors: ['#fef3c7', '#fde68a'], accent: '#b76426', accent2: '#788449', text: '#5c3a1f', church: '#8b4513' },
-  { key: 'winter', name: '겨울', colors: ['#dbeafe', '#bfdbfe'], accent: '#346ca3', accent2: '#6d8fb2', text: '#1e3a5f', church: '#1e40af' },
-  { key: 'forest', name: '숲초록', colors: ['#d4edda', '#a8d5ba'], accent: '#2c4c3e', accent2: '#c5a050', text: '#1e4620', church: '#1b5e20' },
-  { key: 'burgundy', name: '버건디', colors: ['#fce4e4', '#f5c6c6'], accent: '#7a2420', accent2: '#c9b79a', text: '#5c1a1a', church: '#8b2020' }
-];
-
-// Worship order presets from actual program
-var worshipPresets = {
-  reformed_standard: {
-    label: '장로교·개혁교회 표준형',
-    services: {
-      주일오전예배: [['묵도','','다 같이'],['신앙고백','사도신경','다 같이'],['찬송','OO장','다 같이'],['교독문','OO번','다 같이'],['대표기도','','PRAYER'],['찬송','OO장','다 같이'],['성경봉독','BIBLE','다 같이'],['찬양','','찬양대'],['말씀증거','SERMON','PASTOR'],['찬송','OO장','다 같이'],['헌금','','다 같이'],['헌금기도','','OFFERING'],['찬송','OO장(주기도문)','다 같이'],['축도','','PASTOR']],
-      주일오후예배: [['찬송','OO장','다 같이'],['성경','BIBLE','다 같이'],['기도','','다 같이'],['특송','','OOO'],['설교','SERMON','PASTOR'],['찬송','OO장','다 같이'],['합심기도','','다 같이'],['주기도','','다 같이']],
-      수요저녁예배: [['찬송','OO장','다 같이'],['성경','BIBLE','다 같이'],['기도','','OOO 권사'],['특송','','원하는 분'],['설교','SERMON','PASTOR'],['찬송','OO장','다 같이'],['합심기도','','다 같이'],['주기도','','다 같이']],
-      새벽예배: [['인도','','PASTOR'],['기도','','인도자'],['설교','BIBLE','OOO 전도사']],
-      금요기도회: [['인도','','PASTOR'],['설교','','인도자']]
-    }
-  },
-  methodist_holiness: {
-    label: '감리교·성결교 표준형',
-    services: {
-      주일오전예배: [['예배로의 부름','','인도자'],['찬송','OO장','다 같이'],['신앙고백','사도신경','다 같이'],['참회의 기도','','다 같이'],['사죄의 선언','','PASTOR'],['성시교독','OO번','다 같이'],['대표기도','','PRAYER'],['찬양','','성가대'],['성경봉독','BIBLE','다 같이'],['말씀선포','SERMON','PASTOR'],['찬송','OO장','다 같이'],['봉헌','','다 같이'],['봉헌기도','','OFFERING'],['파송의 말씀','','PASTOR'],['축도','','PASTOR']],
-      주일오후예배: [['찬송','OO장','다 같이'],['기도','','다 같이'],['성경봉독','BIBLE','다 같이'],['찬양','','OOO'],['설교','SERMON','PASTOR'],['찬송','OO장','다 같이'],['봉헌','','다 같이'],['축도','','PASTOR']],
-      수요저녁예배: [['찬송','OO장','다 같이'],['기도','','다 같이'],['성경봉독','BIBLE','다 같이'],['설교','SERMON','PASTOR'],['찬송','OO장','다 같이'],['합심기도','','다 같이']],
-      새벽예배: [['기도','','인도자'],['말씀','BIBLE','PASTOR'],['합심기도','','다 같이']],
-      금요기도회: [['기도','','인도자'],['말씀','','PASTOR']]
-    }
-  },
-  baptist_contemporary: {
-    label: '침례교·순복음(경배와찬양)형',
-    services: {
-      주일오전예배: [['경배와 찬양','','찬양팀'],['대표기도','','PRAYER'],['성경봉독','BIBLE','다 같이'],['특송','','OOO'],['설교','SERMON','PASTOR'],['결단찬송','OO장','다 같이'],['헌금','','다 같이'],['헌금기도','','OFFERING'],['축도','','PASTOR']],
-      주일오후예배: [['찬양','','찬양팀'],['기도','','다 같이'],['말씀','SERMON','PASTOR'],['헌금','','다 같이'],['축도','','PASTOR']],
-      수요저녁예배: [['찬양','','찬양팀'],['기도','','다 같이'],['말씀','SERMON','PASTOR'],['통성기도','','다 같이']],
-      새벽예배: [['찬양','','다 같이'],['기도','','인도자'],['말씀','','PASTOR']],
-      금요기도회: [['찬양과 경배','','찬양팀'],['말씀','','PASTOR']]
-    }
-  },
-  small_church_simple: {
-    label: '소형교회 심플형',
-    services: {
-      주일오전예배: [['찬송','OO장','다 같이'],['대표기도','','PRAYER'],['성경봉독','BIBLE','다 같이'],['설교','SERMON','PASTOR'],['찬송','OO장','다 같이'],['헌금','','다 같이'],['축도','','PASTOR']],
-      주일오후예배: [['찬송','OO장','다 같이'],['기도','','다 같이'],['말씀나눔','','PASTOR'],['찬송','OO장','다 같이']],
-      수요저녁예배: [['찬송','OO장','다 같이'],['기도','','다 같이'],['말씀나눔','','PASTOR']],
-      새벽예배: [['기도','','인도자'],['말씀','','PASTOR']],
-      금요기도회: [['기도','','인도자'],['말씀','','PASTOR']]
-    }
-  }
-};
-
-// Initialize background chips
-function initBgChips() {
-  var grid = document.getElementById('bgGrid');
-  bgThemes.forEach(function(theme, idx) {
-    var chip = document.createElement('div');
-    chip.className = 'bg-chip' + (idx === 0 ? ' active' : '');
-    chip.style.cssText = 'height:44px;border-radius:8px;background:linear-gradient(135deg,' + theme.colors[0] + ',' + theme.colors[1] + ');';
-    chip.title = theme.name;
-    chip.setAttribute('data-bg', theme.key);
-    chip.onclick = function() { selectBg(chip, theme.key); };
-    grid.appendChild(chip);
+  addObj('inside',{name:'주일오전예배',role:'title',x:130,y:45,w:245,h:45,text:'오전예배(주일)',fs:23,bold:true,fill:'#801411',color:'#fff',cls:'title'});
+  addObj('inside',{name:'주일오전예배 시간',role:'schedule',x:395,y:50,w:110,h:36,text:'오전 11:00',fs:14,color:'#3f3026',cls:'text centered'});
+  addObj('inside',{name:'주일오전 순서',role:'content',x:45,y:165,w:465,h:610,text:'묵도                 다 같이\n신앙고백   사도신경   다 같이\n찬송       OO장       다 같이\n교독문     OO번       다 같이\n대표기도              OOO 집사\n성경봉독   본문 입력   다 같이\n찬양                  찬양대\n말씀증거   제목 입력   OOO 목사\n헌금                  다 같이\n축도                  OOO 목사',fs:15,color:'#3f3026',cls:'text'});
+  addObj('inside',{name:'주일오후예배',role:'title',x:650,y:45,w:250,h:42,text:'오후예배(주일)',fs:22,bold:true,fill:'#801411',color:'#fff',cls:'title'});
+  addObj('inside',{name:'주일오후 순서',role:'content',x:635,y:95,w:390,h:220,text:'찬송       OO장       다 같이\n성경       본문 입력   다 같이\n기도                  다 같이\n특송                  OOO\n설교       제목 입력   OOO 목사\n주기도                다 같이',fs:14,color:'#3f3026',cls:'text'});
+  addObj('inside',{name:'수요저녁예배',role:'title',x:650,y:345,w:250,h:42,text:'수요저녁예배',fs:21,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
+  addObj('inside',{name:'수요예배 순서',role:'content',x:635,y:395,w:390,h:220,text:'찬송       OO장       다 같이\n성경       본문 입력   다 같이\n기도                  OOO 권사\n특송                  원하는 분\n설교       제목 입력   OOO 목사\n주기도                다 같이',fs:14,color:'#3f3026',cls:'text'});
+  addObj('inside',{name:'헌금 제목',role:'title',x:1160,y:45,w:310,h:42,text:'귀한 예물 드리신 분',fs:21,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
+  addObj('inside',{name:'헌금 명단',role:'content',x:1095,y:100,w:465,h:705,text:'십일조헌금\nOOO OOO OOO OOO OOO\n\n감사헌금\nOOO OOO OOO OOO OOO OOO\n\n선교헌금\nOOO OOO OOO\n\n구제헌금\nOOO OOO OOO\n\n장학헌금\nOOO OOO\n\n꽃 헌화\nOOO',fs:16,color:'#3f3026',cls:'text'});
+}
+function render(){
+  paper.innerHTML='<div class="fold f1"></div><div class="fold f2"></div>';
+  paper.style.backgroundImage=`url('${themePairs[currentTheme][currentPage]}')`;
+  state[currentPage].forEach(o=>{
+    const el=document.createElement('div');el.className='obj '+(o.cls||'text');el.dataset.id=o.id;el.contentEditable=!o.locked;
+    Object.assign(el.style,{left:pct(o.x,BASE_W),top:pct(o.y,BASE_H),width:pct(o.w,BASE_W),height:pct(o.h,BASE_H),fontSize:(o.fs||16)*paper.clientWidth/BASE_W+'px',color:o.color||'#3f3026',fontWeight:o.bold?'700':'400',background:o.fill||'transparent'});
+    el.textContent=o.text; el.addEventListener('click',e=>{e.stopPropagation();select(o.id)}); el.addEventListener('input',()=>{o.text=el.innerText});
+    paper.appendChild(el);
   });
+  document.querySelectorAll('.fold').forEach(f=>f.style.display=document.getElementById('guideToggle').checked?'block':'none');
+  document.getElementById('statusPage').textContent='페이지: '+(currentPage==='outside'?'1':'2')+' / 2';
+  setZoom(zoom,false);
 }
-
-function selectTemplate(el, template) {
-  state.template = template;
-  document.querySelectorAll('.template-card').forEach(function(c){ c.classList.remove('active'); });
-  el.classList.add('active');
-  updateStep(1);
-  updatePreview();
-}
-
-function selectWorshipType(el, type) {
-  state.worshipType = type;
-  document.querySelectorAll('.worship-type-btn').forEach(function(b){ b.classList.remove('active'); });
-  el.classList.add('active');
-  updatePreview();
-}
-
-function selectBg(el, bg) {
-  state.bg = bg;
-  document.querySelectorAll('.bg-chip').forEach(function(c){ c.classList.remove('active'); });
-  el.classList.add('active');
-  updateStep(2);
-  updatePreview();
-}
-
-function updateStep(current) {
-  for(var i=1;i<=4;i++){
-    var el=document.getElementById('step'+i);
-    el.classList.remove('active','done');
-    if(i<current) el.classList.add('done');
-    else if(i===current) el.classList.add('active');
-  }
-}
-
-function zoomPreview(delta) {
-  state.zoom = Math.max(0.5, Math.min(1.5, state.zoom + delta));
-  document.getElementById('zoomLevel').textContent = Math.round(state.zoom*100)+'%';
-  var p = document.getElementById('bulletinPreview');
-  p.style.transform = 'scale('+state.zoom+')';
-  p.style.transformOrigin = 'top center';
-}
-
-function getBgTheme(key) {
-  return bgThemes.find(function(t){ return t.key === key; }) || bgThemes[0];
-}
-
-function updatePreview() {
-  var church = document.getElementById('churchName').value || '교회명';
-  var date = document.getElementById('worshipDate').value || '예배일자';
-  var pastor = document.getElementById('pastor').value || '담임목사';
-  var sermon = document.getElementById('sermonTitle').value || '설교제목';
-  var verse = document.getElementById('bibleVerse').value || '성경구절';
-  var prayer = document.getElementById('prayer').value || '대표기도';
-  var offering = document.getElementById('offering').value || '헌금기도';
-  var worshipType = state.worshipType;
-  
-  var theme = getBgTheme(state.bg);
-  var preset = worshipPresets[state.template];
-  var order = preset.services[worshipType] || [];
-  
-  var preview = document.getElementById('bulletinPreview');
-  preview.style.background = 'linear-gradient(135deg,' + theme.colors[0] + ',' + theme.colors[1] + ')';
-  preview.style.color = theme.text;
-  
-  var accent = theme.accent;
-  var churchColor = theme.church;
-  
-  // Build worship order HTML with placeholders replaced
-  var orderHtml = '';
-  order.forEach(function(item) {
-    var name = item[0];
-    var content = item[1];
-    var person = item[2];
-    
-    // Replace placeholders
-    content = content.replace('BIBLE', verse);
-    content = content.replace('SERMON', sermon);
-    content = content.replace('PRAYER', prayer);
-    content = content.replace('OFFERING', offering);
-    person = person.replace('PASTOR', pastor);
-    
-    orderHtml += '<div style="display:flex;justify-content:space-between;padding:2px 0;font-size:8.5px;line-height:1.6;"><span style="font-weight:500;">' + name + '</span><span style="opacity:0.85;">' + (content || '') + '</span><span style="opacity:0.7;font-size:7.5px;">' + person + '</span></div>';
-  });
-  
-  var templateLabel = preset.label;
-  
-  preview.innerHTML = `
-    <div style="position:absolute;top:0;left:0;right:0;bottom:0;padding:16px;display:flex;flex-direction:column;">
-      
-      <!-- Header -->
-      <div style="text-align:center;padding-bottom:10px;border-bottom:1.5px solid `+accent+`;">
-        <div style="font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:`+accent+`;opacity:0.8;margin-bottom:3px;">`+templateLabel+`</div>
-        <div style="font-size:20px;font-weight:700;color:`+churchColor+`;letter-spacing:0.08em;">`+church+`</div>
-        <div style="font-size:9px;margin-top:2px;opacity:0.8;">`+date+` · `+worshipType+`</div>
-      </div>
-      
-      <!-- 3 Columns -->
-      <div style="flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:10px;min-height:0;">
-        
-        <!-- Column 1: Order of Worship -->
-        <div style="padding-right:7px;border-right:1px dashed `+accent+`50;display:flex;flex-direction:column;">
-          <div style="font-size:10px;font-weight:700;color:`+accent+`;text-align:center;padding-bottom:5px;border-bottom:1px solid `+accent+`40;margin-bottom:6px;letter-spacing:0.12em;">예 배 순 서</div>
-          <div style="flex:1;">
-            `+orderHtml+`
-          </div>
-        </div>
-        
-        <!-- Column 2: Sermon & Cross -->
-        <div style="padding:0 4px;display:flex;flex-direction:column;align-items:center;text-align:center;">
-          <div style="margin:6px 0 10px;">
-            <svg width="42" height="54" viewBox="0 0 48 60" fill="none" stroke="`+accent+`" stroke-width="2.5" opacity="0.75">
-              <line x1="24" y1="4" x2="24" y2="56"/>
-              <line x1="8" y1="20" x2="40" y2="20"/>
-            </svg>
-          </div>
-          <div style="font-size:8px;color:`+accent+`;letter-spacing:0.2em;margin-bottom:5px;">오 늘 의 말 씀</div>
-          <div style="font-size:12px;font-weight:700;line-height:1.4;margin-bottom:8px;">"`+sermon+`"</div>
-          <div style="font-size:8px;opacity:0.85;margin-bottom:12px;">본문: `+verse+`</div>
-          
-          <div style="width:100%;border-top:1px solid `+accent+`40;padding-top:8px;margin-top:auto;">
-            <div style="font-size:8px;font-weight:700;color:`+accent+`;margin-bottom:5px;letter-spacing:0.1em;">교 회 소 식</div>
-            <div style="font-size:7px;line-height:1.7;text-align:left;opacity:0.9;">
-              · 수요성경공부 / 오후 7:30<br>
-              · 금요기도회 / 오후 8:00<br>
-              · 새가족등록 / 매주일<br>
-              · 다음주 설교: 믿음의 길
-            </div>
-          </div>
-        </div>
-        
-        <!-- Column 3: Faith & Info -->
-        <div style="padding-left:7px;border-left:1px dashed `+accent+`50;display:flex;flex-direction:column;">
-          <div style="font-size:10px;font-weight:700;color:`+accent+`;text-align:center;padding-bottom:5px;border-bottom:1px solid `+accent+`40;margin-bottom:6px;letter-spacing:0.12em;">믿 음 과 생 활</div>
-          <div style="font-size:7.5px;line-height:1.75;flex:1;">
-            <div style="font-weight:600;color:`+accent+`;margin-bottom:3px;">■ 신앙고백</div>
-            <div style="opacity:0.9;margin-bottom:8px;">우리는 예수 그리스도를 구주로 믿으며, 하나님의 말씀을 따라 살아가는 하나님의 자녀입니다.</div>
-            
-            <div style="font-weight:600;color:`+accent+`;margin-bottom:3px;">■ 사도신경</div>
-            <div style="opacity:0.85;font-size:7px;line-height:1.6;">나는 전능하신 아버지 하나님, 천지의 창조주를 믿사오며, 그 외아들 우리 주 예수 그리스도를 믿사오니...</div>
-          </div>
-          
-          <div style="border-top:1px solid `+accent+`40;padding-top:7px;margin-top:7px;text-align:center;">
-            <div style="font-size:7.5px;opacity:0.85;">담임: `+pastor+`</div>
-            <div style="font-size:6.5px;opacity:0.65;margin-top:2px;">`+church+` 주보 · `+date+`</div>
-          </div>
-        </div>
-        
-      </div>
-      
-      <!-- Fold lines indicator -->
-      <div style="position:absolute;top:0;bottom:0;left:33.33%;width:1px;background:`+accent+`20;"></div>
-      <div style="position:absolute;top:0;bottom:0;left:66.66%;width:1px;background:`+accent+`20;"></div>
-    </div>
-  `;
-  
-  updateStep(3);
-}
-
-function showApply() {
-  updateStep(4);
-  alert('📝 정식 사용 신청서 페이지로 이동합니다.\n\n실제 서비스에서는 교회명과 이메일을 입력하시면 즉시 시리얼 번호가 발급됩니다.');
-}
-
-function showStore() {
-  alert('🪟 마이크로소프트 스토어로 이동합니다.\n\n현재 심사가 진행 중이며, 게시 완료 후 스토어에서 한 번 클릭으로 설치하실 수 있습니다.');
-}
-
-// Initialize
-initBgChips();
-updatePreview();
+function select(id){selected=state[currentPage].find(o=>o.id===id)||null;document.querySelectorAll('.obj').forEach(e=>e.classList.toggle('selected',e.dataset.id===id));syncProps();}
+function syncProps(){const s=selected;document.getElementById('propName').value=s?s.name:'선택 없음';document.getElementById('propRole').value=s?s.role:'-';document.getElementById('propX').value=s?Math.round(s.x):'';document.getElementById('propY').value=s?Math.round(s.y):'';document.getElementById('propW').value=s?Math.round(s.w):'';document.getElementById('propH').value=s?Math.round(s.h):'';document.getElementById('propFont').value=s?s.fs:'';document.getElementById('propColor').value=s?s.color||'#3f3026':'#3f3026';document.getElementById('propBold').checked=!!(s&&s.bold);document.getElementById('selStatus').textContent=s?`선택: ${s.name}`:'개체를 클릭해 직접 수정하세요';}
+function applyProp(key,val){if(!selected)return;selected[key]=val;render();select(selected.id)}
+['propX','propY','propW','propH','propFont'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{const map={propX:'x',propY:'y',propW:'w',propH:'h',propFont:'fs'};applyProp(map[id],Number(e.target.value))}));
+document.getElementById('propColor').addEventListener('input',e=>applyProp('color',e.target.value));document.getElementById('propBold').addEventListener('change',e=>applyProp('bold',e.target.checked));document.getElementById('propName').addEventListener('change',e=>applyProp('name',e.target.value));document.getElementById('propRole').addEventListener('change',e=>applyProp('role',e.target.value));
+function switchPage(p){currentPage=p;selected=null;document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p));render();syncProps()}
+function setZoom(z,update=true){zoom=Math.max(.45,Math.min(1.25,z));wrap.style.transform=`scale(${zoom})`;document.getElementById('zoomLabel').textContent=Math.round(zoom*100)+'%';if(update)document.getElementById('statusMsg').textContent='화면 확대/축소: '+Math.round(zoom*100)+'%'}
+function fit(){const vp=document.getElementById('viewport');const pw=paper.offsetWidth||1040;const ph=paper.offsetHeight||736;setZoom(Math.min((vp.clientWidth-56)/pw,(vp.clientHeight-56)/ph,.98))}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+b.dataset.panel).classList.add('active')}));
+document.querySelectorAll('[data-page]').forEach(x=>x.addEventListener('click',()=>switchPage(x.dataset.page)));
+document.querySelectorAll('.preset').forEach(x=>x.addEventListener('click',()=>{document.querySelectorAll('.preset').forEach(y=>y.classList.remove('selected'));x.classList.add('selected');document.getElementById('statusMsg').textContent=x.querySelector('b').textContent+' 적용 (데모)'}));
+document.getElementById('prevPage').onclick=()=>switchPage(currentPage==='outside'?'inside':'outside');document.getElementById('nextPage').onclick=()=>switchPage(currentPage==='outside'?'inside':'outside');
+document.getElementById('zoomOut').onclick=()=>setZoom(zoom-.1);document.getElementById('zoomIn').onclick=()=>setZoom(zoom+.1);document.getElementById('fitBtn').onclick=fit;document.getElementById('fitSmall').onclick=fit;
+document.getElementById('guideToggle').onchange=render;document.getElementById('resetBtn').onclick=()=>{seed();currentTheme='기본';render();document.getElementById('statusMsg').textContent='기준 원본주보로 복원했습니다.'};
+document.getElementById('addText').onclick=()=>{addObj(currentPage,{name:'새 텍스트',role:'content',x:560,y:520,w:300,h:90,text:'새 텍스트를 입력하세요',fs:18,color:'#263238',cls:'text'});render();select(state[currentPage].at(-1).id)};
+document.getElementById('deleteObj').onclick=()=>{if(!selected)return;state[currentPage]=state[currentPage].filter(o=>o.id!==selected.id);selected=null;render();syncProps()};
+document.getElementById('fontUp').onclick=()=>selected&&applyProp('fs',(selected.fs||16)+1);document.getElementById('fontDown').onclick=()=>selected&&applyProp('fs',Math.max(8,(selected.fs||16)-1));document.getElementById('boldBtn').onclick=()=>selected&&applyProp('bold',!selected.bold);document.getElementById('fontFamily').onchange=e=>{if(selected){selected.fontFamily=e.target.value;document.querySelector(`[data-id="${selected.id}"]`).style.fontFamily=e.target.value}};
+document.getElementById('saveLocal').onclick=()=>{localStorage.setItem('churchBulletinDemo',JSON.stringify({state,currentTheme}));document.getElementById('statusMsg').textContent='웹 데모 임시저장 완료'};
+document.getElementById('loadLocal').onclick=()=>{const raw=localStorage.getItem('churchBulletinDemo');if(!raw)return showModal('저장된 웹 데모 내용이 없습니다.');try{const d=JSON.parse(raw);state.outside=d.state.outside||[];state.inside=d.state.inside||[];currentTheme=d.currentTheme||'기본';render();document.getElementById('statusMsg').textContent='웹 데모 임시저장을 불러왔습니다.'}catch(e){showModal('저장 데이터를 읽지 못했습니다.')}};
+document.getElementById('modalClose').onclick=()=>document.getElementById('modal').classList.remove('show');function showModal(t){document.getElementById('modalText').textContent=t;document.getElementById('modal').classList.add('show')};document.querySelectorAll('.locked').forEach(b=>b.addEventListener('click',()=>showModal('이 기능은 정식 Windows 프로그램에서 사용할 수 있습니다. 웹 데모에서는 화면과 기본 편집 흐름을 체험할 수 있습니다.')));
+paper.addEventListener('click',()=>{selected=null;document.querySelectorAll('.obj').forEach(e=>e.classList.remove('selected'));syncProps()});
+const grid=document.getElementById('themeGrid');Object.keys(themePairs).forEach(name=>{const b=document.createElement('button');b.className='theme';b.innerHTML=`<img src="${themePairs[name].outside}" alt=""><span>${name}</span>`;b.onclick=()=>{currentTheme=name;render();document.getElementById('statusMsg').textContent=name+' 배경 적용'};grid.appendChild(b)});
+seed();render();setTimeout(fit,80);window.addEventListener('resize',()=>setTimeout(fit,50));
 </script>
-
 </body>
 </html>
