@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인정보 처리방침 — 주보편집기</title>
+<meta name="description" content="주보편집기가 시리얼 신청과 문의에서 수집하는 개인정보의 처리 목적, 항목, 보유 기간, 국외 이전, 권리 행사 방법을 안내합니다.">
+<link rel="icon" href="assets/favicon.png">
+<link rel="canonical" href="https://chaeun-son.github.io/church-bulletin-editor-/privacy.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --cream:#FAF6EC;
+    --paper:#F4EDE1;
+    --ink:#2A2620;
+    --ink-soft:#6B6558;
+    --forest:#2C4C3E;
+    --forest-deep:#1D3329;
+    --maroon:#7A2420;
+    --maroon-deep:#5C1B18;
+    --tan:#C9B79A;
+    --line:#DED3BC;
+    --serif:'Noto Serif KR', serif;
+    --sans:'Pretendard', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    word-break:keep-all;
+    overflow-wrap:break-word;
+  }
+  a{color:var(--maroon);}
+  a:hover{color:var(--maroon-deep);}
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,246,236,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px; max-width:1080px; margin:0 auto;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--serif); font-weight:700; font-size:19px;
+    color:var(--forest-deep); text-decoration:none;
+  }
+  .brand img{width:34px; height:34px; border-radius:9px;}
+  .nav-link{
+    font-size:14px; font-weight:700; color:var(--forest-deep);
+  }
+  main{padding:56px 0 88px;}
+  .wrap{max-width:760px; margin:0 auto; padding:0 28px;}
+  .eyebrow{
+    display:inline-block; font-size:13px; font-weight:700;
+    color:var(--maroon); letter-spacing:.06em; margin-bottom:12px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:900; color:var(--forest-deep);
+    font-size:34px; line-height:1.3; margin-bottom:16px;
+  }
+  .lead{font-size:16px; color:var(--ink-soft); margin-bottom:28px;}
+  .meta{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:20px 22px; margin-bottom:44px;
+  }
+  .meta dl{display:grid; grid-template-columns:120px 1fr; gap:8px 16px; font-size:14.5px;}
+  .meta dt{color:var(--ink-soft); font-weight:600;}
+  .meta dd{color:var(--ink);}
+  h2{
+    font-family:var(--serif); font-weight:700; font-size:22px;
+    color:var(--forest-deep); margin:40px 0 14px; padding-top:8px;
+  }
+  p, li{font-size:15.5px;}
+  p{margin-bottom:12px;}
+  ul{margin:0 0 16px 1.15em;}
+  li{margin-bottom:6px;}
+  table{
+    width:100%; border-collapse:collapse; margin:14px 0 22px;
+    font-size:14.5px; background:#fff; border:1px solid var(--line);
+    border-radius:10px; overflow:hidden;
+  }
+  th, td{text-align:left; padding:11px 12px; vertical-align:top; border-bottom:1px solid var(--line);}
+  th{background:var(--paper); color:var(--forest-deep); font-weight:700; width:22%;}
+  tr:last-child th, tr:last-child td{border-bottom:none;}
+  .note{
+    font-size:14px; color:var(--ink-soft); background:#fff;
+    border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:16px 0 8px;
+  }
+  footer{border-top:1px solid var(--line); padding:28px 0 36px;}
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:16px; flex-wrap:wrap; font-size:13px; color:var(--ink-soft);
+    max-width:760px; margin:0 auto; padding:0 28px;
+  }
+  .footer-inner a{color:var(--ink-soft); text-decoration:underline;}
+  :focus-visible{outline:2px solid var(--forest); outline-offset:2px;}
+  @media (max-width:640px){
+    h1{font-size:28px;}
+    .meta dl{grid-template-columns:1fr;}
+    .header-inner{padding:16px 20px;}
+    .wrap, .footer-inner{padding-left:20px; padding-right:20px;}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/app-icon.png" alt="">
+      주보편집기
+    </a>
+    <a class="nav-link" href="request.html">신청하기</a>
+  </div>
+</header>
+
+<main>
+  <article class="wrap">
+    <div class="eyebrow">개인정보 처리방침</div>
+    <h1>주보편집기 개인정보 처리방침</h1>
+    <p class="lead">주보편집기(이하 “본 서비스”)는 개인정보 보호법에 따라 이용자의 개인정보를 보호하고, 관련 고충을 신속히 처리하기 위하여 이 방침을 공개합니다.</p>
+
+    <div class="meta">
+      <dl>
+        <dt>운영자</dt>
+        <dd>주보편집기 운영자</dd>
+        <dt>연락처</dt>
+        <dd><a href="mailto:immanuel1320@naver.com">immanuel1320@naver.com</a></dd>
+        <dt>서비스 주소</dt>
+        <dd><a href="https://chaeun-son.github.io/church-bulletin-editor-/">https://chaeun-son.github.io/church-bulletin-editor-/</a></dd>
+        <dt>시행일</dt>
+        <dd>2026년 8월 17일</dd>
+      </dl>
+    </div>
+
+    <h2>1. 처리 목적</h2>
+    <p>본 서비스는 다음 목적에만 개인정보를 처리합니다.</p>
+    <ul>
+      <li>프로그램 시리얼 번호 발급, 재확인, 해당 교회 이용 확인</li>
+      <li>설치·이용 안내, 오류·인증 문의 응대</li>
+      <li>유료 전환 시 라이선스 갱신, 입금 확인, 세금계산서 발행</li>
+      <li>관련 법령에 따른 의무 이행</li>
+    </ul>
+    <p>마케팅, 광고, 제3자 판매에는 쓰지 않습니다.</p>
+
+    <h2>2. 처리 항목</h2>
+    <table>
+      <thead>
+        <tr><th>구분</th><th>항목</th><th>수집 시점</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>필수</th>
+          <td>교회명, 이메일</td>
+          <td>시리얼 신청</td>
+        </tr>
+        <tr>
+          <th>선택</th>
+          <td>담당자 이름, 연락처, 남기실 말씀</td>
+          <td>시리얼 신청</td>
+        </tr>
+        <tr>
+          <th>생성</th>
+          <td>시리얼 번호, 발급·재사용 여부</td>
+          <td>신청 처리 시</td>
+        </tr>
+        <tr>
+          <th>유료 시</th>
+          <td>입금자명, 입금일, 금액</td>
+          <td>계좌이체</td>
+        </tr>
+        <tr>
+          <th>세금계산서 요청 시</th>
+          <td>교회(기관)명, 고유번호 또는 사업자등록번호, 주소, 담당자 이메일</td>
+          <td>발행 요청</td>
+        </tr>
+        <tr>
+          <th>자동 생성</th>
+          <td>접속 일시, 브라우저·기기 정보, IP 주소</td>
+          <td>웹사이트 또는 라이선스 서버 접속 시</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>예배 순서, 주보 본문, 성도 명단은 이용자 PC에서만 다루며 본 서비스 서버로 올리지 않습니다. 신앙 내용, 헌금, 교인 개인정보 등 민감정보는 수집하지 않습니다.</p>
+
+    <h2>3. 처리 및 보유 기간</h2>
+    <ul>
+      <li>시리얼 발급 정보(교회명, 이메일, 선택 항목, 시리얼 번호): 라이선스 이용 종료 후 1년, 또는 삭제 요청 시 지체 없이 파기</li>
+      <li>거래·세금계산서 정보: 전자상거래 등에서의 소비자보호에 관한 법률 및 국세기본법에 따라 5년</li>
+      <li>문의 메일: 처리 완료 후 1년</li>
+      <li>법령에 더 긴 보존 의무가 있으면 그 기간</li>
+    </ul>
+
+    <h2>4. 제3자 제공</h2>
+    <p>원칙적으로 이용자 동의 없이 제3자에게 제공하지 않습니다. 법령에 따른 수사·감독 기관의 적법한 요청이 있는 경우에만 제공합니다.</p>
+
+    <h2>5. 처리 위탁 및 국외 이전</h2>
+    <p>서비스 제공에 필요한 범위에서 아래 사업자에게 처리를 위탁하며, 해당 정보는 국외로 이전될 수 있습니다.</p>
+    <table>
+      <thead>
+        <tr><th>수탁·이전 대상</th><th>이전 항목</th><th>이전 국가·시점</th><th>목적</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>GitHub, Inc.</th>
+          <td>사이트 접속 로그</td>
+          <td>미국. 페이지 접속 시</td>
+          <td>랜딩 페이지(GitHub Pages) 호스팅</td>
+        </tr>
+        <tr>
+          <th>Render Services, Inc.</th>
+          <td>교회명, 이메일, 선택 항목, 시리얼 번호</td>
+          <td>미국. 시리얼 신청 시</td>
+          <td>라이선스 서버 호스팅 및 시리얼 발급</td>
+        </tr>
+        <tr>
+          <th>Microsoft Corporation</th>
+          <td>스토어 계정·설치 관련 정보</td>
+          <td>미국. 스토어에서 설치할 때</td>
+          <td>Microsoft Store 배포·업데이트</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>국외 이전을 원하지 않으면 시리얼 신청과 스토어 설치를 하지 않으면 됩니다. 이미 이전된 정보의 삭제는 아래 연락처로 요청할 수 있습니다.</p>
+
+    <h2>6. 파기</h2>
+    <p>보유 기간이 끝나거나 처리 목적이 달성되면 지체 없이 파기합니다.</p>
+    <ul>
+      <li>전자 파일: 복구되지 않도록 삭제</li>
+      <li>종이: 파쇄 또는 소각</li>
+      <li>법령 보존 대상은 별도 보관 후 기간 종료 시 파기</li>
+    </ul>
+
+    <h2>7. 정보주체의 권리</h2>
+    <p>이용자는 언제든지 열람, 정정·삭제, 처리정지를 요청할 수 있습니다. <a href="mailto:immanuel1320@naver.com">immanuel1320@naver.com</a>으로 교회명과 신청 이메일을 적어 보내면 됩니다. 법정대리인이 14세 미만을 대신하는 경우는 본 서비스 대상이 아닙니다.</p>
+    <p>요청을 받으면 지체 없이 확인하고, 10일 이내에 조치 결과를 회신합니다. 다른 이용자의 개인정보나 정당한 이익을 침해하는 요청은 제한될 수 있습니다.</p>
+
+    <h2>8. 자동 수집 장치</h2>
+    <p>본 서비스가 광고 쿠키를 심지는 않습니다. GitHub Pages, 라이선스 서버, Microsoft Store가 접속·설치 기록을 남길 수 있습니다. 브라우저에서 쿠키를 거부할 수 있으나, 사이트 일부 기능이 제한될 수 있습니다.</p>
+
+    <h2>9. 안전성 확보 조치</h2>
+    <ul>
+      <li>시리얼·문의 정보에 대한 접근을 운영자 계정으로 제한</li>
+      <li>이메일·클라우드·호스팅 계정 비밀번호 및 가능한 경우 2단계 인증</li>
+      <li>거래 증빙은 세금·회계 목적 외 열람 제한</li>
+      <li>개인정보 유출을 알게 되면 이용자와 개인정보보호위원회 등에 법령이 정한 바에 따라 통지·신고</li>
+    </ul>
+
+    <h2>10. 개인정보 보호 책임</h2>
+    <p>개인정보 보호 업무와 고충은 운영자가 직접 처리합니다.</p>
+    <ul>
+      <li>성명: 주보편집기 운영자</li>
+      <li>이메일: <a href="mailto:immanuel1320@naver.com">immanuel1320@naver.com</a></li>
+    </ul>
+    <p>권익 침해 상담: <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener">개인정보침해 신고센터</a> 118, <a href="https://www.kopico.go.kr" target="_blank" rel="noopener">개인정보분쟁조정위원회</a>, 경찰청 182</p>
+
+    <h2>11. 방침 변경</h2>
+    <p>변경이 있으면 시행 7일 전에 이 페이지에 공지합니다. 이용자에게 불리한 변경은 30일 전에 공지합니다.</p>
+
+    <p class="note">시리얼 신청 시 이 방침의 내용을 확인하고 동의한 것으로 봅니다. 동의하지 않으면 신청하지 않으면 됩니다.</p>
+  </article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>© 주보편집기</span>
+    <span><a href="index.html">홈</a> · 시행일 2026. 8. 17.</span>
+  </div>
+</footer>
+</body>
+</html>
