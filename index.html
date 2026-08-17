@@ -166,19 +166,55 @@
   footer{border-top:1px solid var(--line); padding:32px 0; margin-top:40px;}
   .footer-inner{display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--ink-soft);}
 
+
+  /* ---------- Templates ---------- */
+  .tpl-grid{
+    display:grid; grid-template-columns:repeat(2,1fr); gap:22px;
+  }
+  .tpl-card{
+    display:flex; flex-direction:column;
+    background:var(--paper); border:1px solid var(--line); border-radius:16px;
+    overflow:hidden; text-decoration:none; color:inherit;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .tpl-card:hover{transform:translateY(-3px); box-shadow:0 18px 36px -24px rgba(42,38,32,.45);}
+  .tpl-thumb{
+    background:#fff; aspect-ratio:297/210; overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .tpl-thumb img{
+    width:100%; height:100%; object-fit:cover; object-position:right center;
+  }
+  .tpl-card.portrait .tpl-thumb{aspect-ratio:148/210; max-height:280px; object-fit:cover;}
+  .tpl-card.portrait .tpl-thumb img{object-position:center top;}
+  .tpl-meta{padding:16px 18px 18px;}
+  .tpl-kicker{font-size:12px; font-weight:700; color:var(--maroon); letter-spacing:.04em; margin-bottom:6px;}
+  .tpl-meta h3{font-family:var(--serif); font-size:18px; font-weight:700; color:var(--forest-deep); margin-bottom:6px;}
+  .tpl-meta p{font-size:13.5px; color:var(--ink-soft); line-height:1.55;}
+  .tpl-seasons{margin-top:22px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;}
+  .tpl-seasons .label{font-size:13px; color:var(--ink-soft); margin-right:4px;}
+  .tpl-chip{
+    font-size:13px; font-weight:600; color:var(--forest-deep);
+    background:#fff; border:1px solid var(--line); border-radius:999px;
+    padding:6px 12px;
+  }
+  .tpl-note{margin-top:14px; font-size:13.5px; color:var(--ink-soft);}
+  .tpl-note a{color:var(--maroon); font-weight:700;}
+
   @media (max-width:880px){
     .hero-inner{grid-template-columns:1fr;}
     .hero-art{order:-1;}
     h1{font-size:32px;}
-    .pain-list, .feature-grid, .steps{grid-template-columns:1fr;}
+    .pain-list, .feature-grid, .steps, .tpl-grid{grid-template-columns:1fr;}
     .cta-band{flex-direction:column; text-align:center; padding:40px 28px;}
     .cta-band .cta-right{width:100%;}
+    .tpl-card.portrait .tpl-thumb{max-height:none;}
   }
 
   :focus-visible{outline:2px solid var(--forest); outline-offset:2px;}
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    .btn:hover{transform:none;}
+    .btn:hover,.tpl-card:hover{transform:none;}
   }
 </style>
 </head>
@@ -191,6 +227,7 @@
       주보편집기
     </a>
     <div style="display:flex; align-items:center; gap:14px;">
+      <a href="#templates" style="font-size:14px; font-weight:700; color:var(--forest-deep); text-decoration:none;">템플릿</a>
       <a href="request.html" style="font-size:14px; font-weight:700; color:var(--forest-deep); text-decoration:underline;">신청하기</a>
       <a class="btn btn-primary" href="https://github.com/chaeun-son/church-bulletin-editor-/releases/download/v4.7.0/_Setup.exe">무료로 다운로드</a>
     </div>
@@ -241,6 +278,60 @@
         <p>절기가 바뀔 때마다 배경과 장식을 일일이 새로 찾아 넣는다</p>
       </div>
     </div>
+  </div>
+</section>
+
+
+<section id="templates">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-eyebrow">템플릿</div>
+      <h2>교단에 맞는 주보부터 고르세요</h2>
+    </div>
+    <div class="tpl-grid">
+      <a class="tpl-card" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/presbyterian.jpg" alt="장로교·개혁 3단 주보 겉면"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">3단 주보</div>
+          <h3>장로교 · 개혁</h3>
+          <p>묵도, 사도신경, 교독문이 들어간 기본 예배순서입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/baptist.jpg" alt="침례교·순복음 3단 주보 겉면"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">3단 주보</div>
+          <h3>침례교 · 순복음</h3>
+          <p>경배와 찬양, 특송이 있는 예배순서입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/simple.jpg" alt="소형교회 심플형 3단 주보 겉면"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">3단 주보</div>
+          <h3>소형교회 심플형</h3>
+          <p>짧은 순서만 남긴 작은 교회용 구성입니다.</p>
+        </div>
+      </a>
+      <a class="tpl-card portrait" href="request.html">
+        <div class="tpl-thumb"><img src="assets/templates/cuecard.jpg" alt="A5 예배진행카드 1쪽"></div>
+        <div class="tpl-meta">
+          <div class="tpl-kicker">A5 큐카드</div>
+          <h3>예배진행카드</h3>
+          <p>완성한 주보에서 인도자용 A5 카드를 그대로 만듭니다.</p>
+        </div>
+      </a>
+    </div>
+    <div class="tpl-seasons">
+      <span class="label">절기 · 부서 배경</span>
+      <span class="tpl-chip">성탄절</span>
+      <span class="tpl-chip">부활절</span>
+      <span class="tpl-chip">추수감사절</span>
+      <span class="tpl-chip">송구영신</span>
+      <span class="tpl-chip">청년부</span>
+      <span class="tpl-chip">아동부</span>
+    </div>
+    <p class="tpl-note">감리교·성결 예배순서도 프로그램 안에 있습니다. 카드를 누르면 시리얼 신청으로 이어집니다.</p>
   </div>
 </section>
 
