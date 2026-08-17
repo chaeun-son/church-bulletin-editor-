@@ -214,6 +214,50 @@
   .tpl-note{margin-top:14px; font-size:13.5px; color:var(--ink-soft);}
   .tpl-note a{color:var(--maroon); font-weight:700;}
 
+  
+  .tpl-lightbox[hidden]{display:none;}
+  .tpl-lightbox{
+    position:fixed; inset:0; z-index:80;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .tpl-lightbox-backdrop{
+    position:absolute; inset:0; background:rgba(42,38,32,.55);
+  }
+  .tpl-lightbox-panel{
+    position:relative; z-index:1;
+    width:min(920px,100%); max-height:calc(100vh - 48px);
+    overflow:auto;
+    background:var(--cream); border:1px solid var(--line); border-radius:18px;
+    box-shadow:0 30px 70px -24px rgba(42,38,32,.5);
+    display:grid; grid-template-columns:1.15fr .85fr;
+  }
+  .tpl-lightbox-figure{
+    background:#fff; border-right:1px solid var(--line);
+    min-height:280px; display:flex; align-items:center; justify-content:center;
+    padding:22px;
+  }
+  .tpl-lightbox-figure img{
+    max-width:100%; max-height:min(72vh,640px);
+    width:auto; height:auto; object-fit:contain;
+    box-shadow:0 10px 28px -18px rgba(42,38,32,.4);
+  }
+  .tpl-lightbox-figure .tpl-type{
+    width:100%; min-height:280px; aspect-ratio:auto; border:0;
+  }
+  .tpl-lightbox-copy{padding:28px 26px 26px; display:flex; flex-direction:column;}
+  .tpl-lightbox-copy h3{font-family:var(--serif); font-size:26px; font-weight:700; color:var(--forest-deep); margin:0 0 10px;}
+  .tpl-lightbox-copy p{font-size:15px; color:var(--ink-soft); margin-bottom:12px;}
+  .tpl-lightbox-hint{font-size:13px; color:var(--ink-soft);}
+  .tpl-lightbox-copy .btn{margin-top:auto; align-self:flex-start;}
+  .tpl-lightbox-close{
+    position:absolute; top:12px; right:12px; z-index:2;
+    border:1px solid var(--line); background:#fff; color:var(--forest-deep);
+    font-family:var(--sans); font-size:13px; font-weight:700;
+    border-radius:999px; padding:6px 12px; cursor:pointer;
+  }
+  body.lb-open{overflow:hidden;}
+
   @media (max-width:880px){
     .hero-inner{grid-template-columns:1fr;}
     .hero-art{order:-1;}
@@ -223,6 +267,8 @@
     .cta-band{flex-direction:column; text-align:center; padding:40px 28px;}
     .cta-band .cta-right{width:100%;}
     .tpl-card.portrait .tpl-thumb{max-height:none;}
+    .tpl-lightbox-panel{grid-template-columns:1fr;}
+    .tpl-lightbox-figure{border-right:0; border-bottom:1px solid var(--line);}
   }
 
   :focus-visible{outline:2px solid var(--forest); outline-offset:2px;}
@@ -488,7 +534,7 @@
         </div>
       </a>
     </div>
-    <p class="tpl-note">교단 주보와 큐카드는 실제 출력본입니다. 절기·배경지는 고르는 미리보기라, 프로그램 안 그림과 조금 다를 수 있습니다. 카드를 누르면 시리얼 신청으로 이어집니다.</p>
+    <p class="tpl-note">교단 주보와 큐카드는 실제 출력본입니다. 절기·배경지는 고르는 미리보기라, 프로그램 안 그림과 조금 다를 수 있습니다. 카드를 누르면 먼저 크게 볼 수 있습니다. 프로그램으로 쓰려면 미리보기에서 신청하면 됩니다.</p>
   </div>
 </section>
 
@@ -583,19 +629,108 @@
 </footer>
 
 
+
+<div class="tpl-lightbox" id="tplLightbox" hidden>
+  <div class="tpl-lightbox-backdrop" data-close="1"></div>
+  <div class="tpl-lightbox-panel" role="dialog" aria-modal="true" aria-labelledby="tplLbTitle">
+    <button type="button" class="tpl-lightbox-close" data-close="1">닫기</button>
+    <div class="tpl-lightbox-figure">
+      <img id="tplLbImg" alt="">
+      <div id="tplLbFallback" class="tpl-type" hidden></div>
+    </div>
+    <div class="tpl-lightbox-copy">
+      <div class="tpl-kicker" id="tplLbKicker"></div>
+      <h3 id="tplLbTitle"></h3>
+      <p id="tplLbDesc"></p>
+      <p class="tpl-lightbox-hint" id="tplLbHint"></p>
+      <a class="btn btn-primary" id="tplLbApply" href="request.html">이 양식으로 신청</a>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   var box = document.querySelector('.tpl-filters');
-  if(!box) return;
-  box.addEventListener('click', function(e){
-    var btn = e.target.closest('button[data-filter]');
-    if(!btn) return;
-    var f = btn.getAttribute('data-filter');
-    box.querySelectorAll('button').forEach(function(b){ b.classList.toggle('is-on', b===btn); });
-    document.querySelectorAll('.tpl-card').forEach(function(card){
-      var on = f==='all' || card.getAttribute('data-cat')===f;
-      card.classList.toggle('is-off', !on);
+  if(box){
+    box.addEventListener('click', function(e){
+      var btn = e.target.closest('button[data-filter]');
+      if(!btn) return;
+      var f = btn.getAttribute('data-filter');
+      box.querySelectorAll('button').forEach(function(b){ b.classList.toggle('is-on', b===btn); });
+      document.querySelectorAll('.tpl-card').forEach(function(card){
+        var on = f==='all' || card.getAttribute('data-cat')===f;
+        card.classList.toggle('is-off', !on);
+      });
     });
+  }
+
+  var lb = document.getElementById('tplLightbox');
+  var img = document.getElementById('tplLbImg');
+  var fallback = document.getElementById('tplLbFallback');
+  var kicker = document.getElementById('tplLbKicker');
+  var title = document.getElementById('tplLbTitle');
+  var desc = document.getElementById('tplLbDesc');
+  var hint = document.getElementById('tplLbHint');
+  var apply = document.getElementById('tplLbApply');
+  var lastFocus = null;
+
+  function closeLb(){
+    if(!lb || lb.hidden) return;
+    lb.hidden = true;
+    document.body.classList.remove('lb-open');
+    if(lastFocus) lastFocus.focus();
+  }
+
+  function openLb(card){
+    var photo = card.querySelector('img');
+    var cat = card.getAttribute('data-cat') || '';
+    var nameEl = card.querySelector('h3');
+    var kickEl = card.querySelector('.tpl-kicker');
+    var pEl = card.querySelector('.tpl-meta p');
+    var name = nameEl ? nameEl.textContent.trim() : '';
+    kicker.textContent = kickEl ? kickEl.textContent.trim() : '';
+    title.textContent = name;
+    desc.textContent = pEl ? pEl.textContent.trim() : '';
+    if(cat === 'denom' || cat === 'card'){
+      hint.textContent = '프로그램에서 쓰는 실제 출력본입니다.';
+    } else {
+      hint.textContent = '고르는 미리보기입니다. 프로그램 안 그림과 조금 다를 수 있습니다.';
+    }
+    apply.href = 'request.html?item=' + encodeURIComponent(name);
+    if(photo && photo.getAttribute('src')){
+      img.hidden = false;
+      fallback.hidden = true;
+      img.src = photo.getAttribute('src');
+      img.alt = photo.getAttribute('alt') || name;
+    } else {
+      img.removeAttribute('src');
+      img.hidden = true;
+      fallback.hidden = false;
+      fallback.textContent = name;
+      hint.textContent = '프로그램 안에 예배순서 프리셋이 있습니다. 인쇄 샘플 사진은 아직 없습니다.';
+    }
+    lastFocus = document.activeElement;
+    lb.hidden = false;
+    document.body.classList.add('lb-open');
+    lb.querySelector('.tpl-lightbox-close').focus();
+  }
+
+  var grid = document.querySelector('.tpl-grid');
+  if(grid){
+    grid.addEventListener('click', function(e){
+      var card = e.target.closest('.tpl-card');
+      if(!card) return;
+      e.preventDefault();
+      openLb(card);
+    });
+  }
+  if(lb){
+    lb.addEventListener('click', function(e){
+      if(e.target.closest('[data-close]')) closeLb();
+    });
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeLb();
   });
 })();
 </script>

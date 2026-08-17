@@ -129,6 +129,14 @@
   const btn = document.getElementById('submit-btn');
   const msg = document.getElementById('form-msg');
 
+  (function(){
+    var q = new URLSearchParams(location.search).get('item');
+    var note = document.getElementById('note');
+    if(q && note && !note.value){
+      note.value = '관심 템플릿: ' + q;
+    }
+  })();
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     msg.className = 'msg';
