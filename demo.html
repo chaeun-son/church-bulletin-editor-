@@ -7,51 +7,52 @@
 <style>
 :root{--green:#173b3b;--green2:#2d5c58;--line:#d8dde2;--bg:#eef0f2;--text:#263238;--blue:#1470c9;--panel:#fff;--warn:#b76b19}
 *{box-sizing:border-box} html,body{height:100%;margin:0;font-family:"Malgun Gothic","Noto Sans KR",sans-serif;color:var(--text);background:#f4f5f7;overflow:hidden}
-button,input,select,textarea{font:inherit}
-.app{height:100vh;display:flex;flex-direction:column;min-width:1180px}
-.menubar{height:34px;background:#fff;border-bottom:1px solid #dde1e6;display:flex;align-items:center;padding:0 10px;gap:2px;flex:0 0 auto}
-.menu{border:0;background:transparent;padding:6px 11px;border-radius:3px;cursor:pointer}.menu:hover{background:#eef3f7}
-.brand{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:#59636b}.brand img{width:22px;height:22px;border-radius:5px}.demo-chip{background:#fff4df;color:#8a4b08;border:1px solid #efd2a5;padding:3px 8px;border-radius:999px;font-weight:700}
+button,input,select,textarea{font:inherit}.app{height:100vh;display:flex;flex-direction:column;min-width:1180px}
+.menubar{height:34px;background:#fff;border-bottom:1px solid #dde1e6;display:flex;align-items:center;padding:0 10px;gap:2px;flex:0 0 auto;position:relative;z-index:20}
+.menu{border:0;background:transparent;padding:6px 11px;border-radius:3px;cursor:pointer}.menu:hover,.menu.open{background:#e7eff4}
+.brand{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;color:#59636b}.brand img{width:22px;height:22px;border-radius:5px}.demo-chip{background:#e9f6ef;color:#226147;border:1px solid #b9dac9;padding:3px 8px;border-radius:999px;font-weight:700}
+.menupop{display:none;position:fixed;z-index:70;min-width:210px;background:#fff;border:1px solid #cfd6dc;border-radius:5px;box-shadow:0 10px 28px rgba(0,0,0,.18);padding:5px}.menupop.show{display:block}.menupop button{width:100%;border:0;background:#fff;text-align:left;padding:8px 10px;border-radius:4px;cursor:pointer;font-size:12px}.menupop button:hover{background:#edf4f7}.menupop .divider{height:1px;background:#e5e8eb;margin:4px 2px}.menupop .restricted{color:#9b5711}.menupop small{float:right;color:#879099}
 .toolbar{height:74px;background:#fff;border-bottom:1px solid #d9dde2;display:flex;align-items:stretch;padding:4px 8px;gap:2px;overflow-x:auto;flex:0 0 auto}
-.tool{min-width:68px;border:1px solid transparent;background:transparent;border-radius:4px;padding:5px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:#222;font-size:11px;white-space:nowrap}.tool:hover{background:#f1f5f8;border-color:#d9e0e6}.tool .ico{font-size:23px;line-height:1}.sep{width:1px;background:#dde1e6;margin:7px 5px}
-.workspace{flex:1;display:grid;grid-template-columns:350px minmax(620px,1fr) 300px;min-height:0}
-.left{background:#fff;border-right:1px solid var(--line);display:grid;grid-template-columns:82px 1fr;min-width:0}.navrail{background:var(--green);padding:8px 0;display:flex;flex-direction:column;gap:3px}.navbtn{height:68px;border:0;border-left:4px solid transparent;background:transparent;color:#f3f8f7;padding:8px 2px;font-size:12px;cursor:pointer}.navbtn:hover{background:#224c4b}.navbtn.active{background:var(--green2);border-left-color:#e8f3ef;font-weight:700}.nav-spacer{flex:1}.navbtn.settings{height:60px}
-.context{overflow:auto;background:#fff;padding:12px}.panel{display:none}.panel.active{display:block}.panel h2{font-size:16px;margin:0 0 12px}.panel p.note{font-size:12px;color:#59636b;line-height:1.55;margin:0 0 12px}.group{border:1px solid #dfe3e6;border-radius:5px;margin:0 0 12px;padding:13px 10px 10px;position:relative}.group>strong{position:absolute;top:-9px;left:9px;background:#fff;padding:0 4px;font-size:12px;color:#3e454c}.row{display:flex;gap:7px;margin:7px 0}.field{width:100%;border:1px solid #cfd5da;border-radius:4px;padding:7px;background:#fff}.btn{background:#fff;border:1px solid #cfd6dc;border-radius:4px;padding:7px 9px;cursor:pointer}.btn:hover{background:#f4f8fa;border-color:#aebcc6}.btn.primary{background:#2d5c58;color:#fff;border-color:#2d5c58}.btn.danger{color:#a12b2b;border-color:#d8b4b4}.preset{width:100%;text-align:left;margin:5px 0;padding:9px;border:1px solid #d7dde1;border-radius:4px;background:#fff;cursor:pointer}.preset:hover,.preset.selected{background:#eef5f2;border-color:#9ebbb4}.preset b{display:block;font-size:12px}.preset span{display:block;font-size:11px;color:#66736d;margin-top:3px}.themegrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.theme{border:1px solid #d7dde1;border-radius:5px;overflow:hidden;background:#fff;cursor:pointer;padding:0}.theme img{width:100%;height:66px;object-fit:cover;display:block}.theme span{display:block;padding:5px;font-size:11px}.list{border:1px solid #d7dde1;border-radius:4px;background:#fff;overflow:hidden}.listitem{padding:8px 9px;border-bottom:1px solid #edf0f2;font-size:12px;cursor:pointer}.listitem:last-child{border-bottom:0}.listitem.active{background:#edf6f2;color:#24584e;font-weight:700}
-.center{background:var(--bg);display:flex;flex-direction:column;min-width:0;min-height:0}.doctabs{height:40px;background:#fff;border-bottom:1px solid var(--line);padding:5px 8px;display:flex;align-items:center;gap:6px}.doctab{background:#f7f8fa;border:1px solid #d9dee3;border-bottom:2px solid #2c7a6b;border-radius:4px;padding:7px 14px;font-weight:600;font-size:12px}.plus{width:30px;height:28px;padding:0}
-.canvasbar{height:42px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:5px 8px;gap:6px;font-size:12px}.canvasbar .grow{flex:1}.zoomlabel{min-width:54px;text-align:center;color:#4f5b61}.fitstatus{padding:5px 8px;border-radius:4px;background:#edf6ef;color:#315f4e}
-.viewport{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:28px;background:#d5d7da;position:relative}.paper-wrap{transform-origin:center center;transition:transform .15s}.paper{position:relative;width:min(1040px,74vw);aspect-ratio:1600/1131;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 4px 22px rgba(0,0,0,.28);border:1px solid #b6b8bb;overflow:hidden}.fold{position:absolute;top:0;bottom:0;width:0;border-left:1px dashed rgba(180,145,85,.48);pointer-events:none}.fold.f1{left:33.333%}.fold.f2{left:66.666%}
-.obj{position:absolute;min-width:36px;min-height:24px;border:1px solid transparent;padding:4px 6px;overflow:hidden;white-space:pre-wrap;line-height:1.35;outline:none;cursor:text}.obj:hover{border-color:#54a0e8}.obj.selected{border:2px solid #1470c9;box-shadow:0 0 0 1px rgba(20,112,201,.12)}.obj.dragging{cursor:move}.obj.title{font-weight:700;text-align:center;border-radius:8px;color:#fff}.obj.text{color:#3f3026}.obj.contact{background:rgba(234,240,213,.92);border-radius:10px;font-weight:700}.obj.centered{text-align:center}.photo-object{position:absolute;border:2px solid transparent;background-size:cover;background-position:center}.photo-object.selected{border-color:#1470c9}.resize-dot{display:none;position:absolute;width:8px;height:8px;background:#fff;border:1px solid #1470c9}.selected .resize-dot{display:block}.rd-br{right:-5px;bottom:-5px;cursor:nwse-resize}
-.right{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.rtitle{padding:13px 12px;font-weight:700;font-size:15px;border-bottom:1px solid #dfe3e7}.rtabs{height:36px;border-bottom:1px solid #dfe3e7;display:flex}.rtab{flex:1;border:0;background:#fff;color:#555;cursor:pointer}.rtab.active{color:var(--blue);border-bottom:2px solid var(--blue);font-weight:600}.rscroll{overflow:auto;padding:12px;flex:1}.formrow{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:7px;margin:7px 0;font-size:12px}.mini{padding:6px;border:1px solid #cfd5da;border-radius:4px;width:100%;min-width:0}.check{display:flex;gap:7px;align-items:center;font-size:12px;margin:7px 0}.hint{color:#5d6772;font-size:11px;line-height:1.45}.statusbar{height:28px;background:#fff;border-top:1px solid var(--line);display:flex;align-items:center;padding:0 10px;font-size:11px;color:#4d535a;gap:18px;flex:0 0 auto}.statusbar .msg{margin-right:auto}.modalback{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:50;align-items:center;justify-content:center}.modalback.show{display:flex}.modal{width:420px;background:#fff;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}.modal h3{margin:0 0 10px}.modal p{font-size:13px;line-height:1.55;color:#4f5b61}.modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.tool{min-width:68px;border:1px solid transparent;background:transparent;border-radius:4px;padding:5px 6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;color:#222;font-size:11px;white-space:nowrap}.tool:hover{background:#f1f5f8;border-color:#d9e0e6}.tool .ico{font-size:23px;line-height:1}.tool.restricted{color:#9b5711}.tool.restricted:hover{background:#fff7eb;border-color:#efd6b2}.sep{width:1px;background:#dde1e6;margin:7px 5px}
+.workspace{flex:1;display:grid;grid-template-columns:350px minmax(620px,1fr) 300px;min-height:0}.left{background:#fff;border-right:1px solid var(--line);display:grid;grid-template-columns:82px 1fr;min-width:0}.navrail{background:var(--green);padding:8px 0;display:flex;flex-direction:column;gap:3px}.navbtn{height:68px;border:0;border-left:4px solid transparent;background:transparent;color:#f3f8f7;padding:8px 2px;font-size:12px;cursor:pointer}.navbtn:hover{background:#224c4b}.navbtn.active{background:var(--green2);border-left-color:#e8f3ef;font-weight:700}.nav-spacer{flex:1}.navbtn.settings{height:60px}
+.context{overflow:auto;background:#fff;padding:12px}.panel{display:none}.panel.active{display:block}.panel h2{font-size:16px;margin:0 0 12px}.panel p.note{font-size:12px;color:#59636b;line-height:1.55;margin:0 0 12px}.group{border:1px solid #dfe3e6;border-radius:5px;margin:0 0 12px;padding:13px 10px 10px;position:relative}.group>strong{position:absolute;top:-9px;left:9px;background:#fff;padding:0 4px;font-size:12px;color:#3e454c}.row{display:flex;gap:7px;margin:7px 0}.field{width:100%;border:1px solid #cfd5da;border-radius:4px;padding:7px;background:#fff}.btn{background:#fff;border:1px solid #cfd6dc;border-radius:4px;padding:7px 9px;cursor:pointer}.btn:hover{background:#f4f8fa;border-color:#aebcc6}.btn.primary{background:#2d5c58;color:#fff;border-color:#2d5c58}.btn.danger{color:#a12b2b;border-color:#d8b4b4}.btn.soft{background:#eef6f2;border-color:#b7d0c6;color:#275a48}.preset{width:100%;text-align:left;margin:5px 0;padding:9px;border:1px solid #d7dde1;border-radius:4px;background:#fff;cursor:pointer}.preset:hover,.preset.selected{background:#eef5f2;border-color:#9ebbb4}.preset b{display:block;font-size:12px}.preset span{display:block;font-size:11px;color:#66736d;margin-top:3px}.themegrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.theme{border:1px solid #d7dde1;border-radius:5px;overflow:hidden;background:#fff;cursor:pointer;padding:0}.theme img{width:100%;height:66px;object-fit:cover;display:block}.theme span{display:block;padding:5px;font-size:11px}.theme.active{outline:2px solid #2d7b6d;outline-offset:-2px}.list{border:1px solid #d7dde1;border-radius:4px;background:#fff;overflow:hidden}.listitem{padding:8px 9px;border-bottom:1px solid #edf0f2;font-size:12px;cursor:pointer}.listitem:last-child{border-bottom:0}.listitem.active{background:#edf6f2;color:#24584e;font-weight:700}
+.clipgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.clipbtn{border:1px solid #d7dde1;border-radius:5px;background:#fff;padding:8px 5px;cursor:pointer;font-size:11px}.clipbtn:hover{background:#eef5f2}.clipbtn img{width:34px;height:34px;object-fit:contain;display:block;margin:0 auto 4px}.saveditem{display:flex;align-items:center;gap:6px;border:1px solid #dfe3e6;border-radius:4px;padding:7px;margin:6px 0;font-size:11px}.saveditem .grow{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tiny{padding:4px 6px;font-size:10px}.library-card{border:1px solid #dfe3e6;border-radius:5px;padding:8px;margin:7px 0;background:#fafbfb}.library-card b{font-size:12px}.library-card p{font-size:11px;color:#657078;margin:4px 0 7px;line-height:1.4}
+.center{background:var(--bg);display:flex;flex-direction:column;min-width:0;min-height:0}.doctabs{height:40px;background:#fff;border-bottom:1px solid var(--line);padding:5px 8px;display:flex;align-items:center;gap:6px}.doctab{background:#f7f8fa;border:1px solid #d9dee3;border-bottom:2px solid #2c7a6b;border-radius:4px;padding:7px 14px;font-weight:600;font-size:12px}.plus{width:30px;height:28px;padding:0}.canvasbar{height:42px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:5px 8px;gap:6px;font-size:12px}.canvasbar .grow{flex:1}.zoomlabel{min-width:54px;text-align:center;color:#4f5b61}.fitstatus{padding:5px 8px;border-radius:4px;background:#edf6ef;color:#315f4e}
+.viewport{flex:1;overflow:auto;display:flex;align-items:center;justify-content:center;padding:28px;background:#d5d7da;position:relative}.paper-wrap{transform-origin:center center;transition:transform .15s}.paper{position:relative;width:min(1040px,74vw);aspect-ratio:1600/1131;background-size:100% 100%;background-repeat:no-repeat;box-shadow:0 4px 22px rgba(0,0,0,.28);border:1px solid #b6b8bb;overflow:visible}.fold{position:absolute;top:0;bottom:0;width:0;border-left:1px dashed rgba(180,145,85,.48);pointer-events:none;z-index:1}.fold.f1{left:33.333%}.fold.f2{left:66.666%}
+.obj{position:absolute;min-width:24px;min-height:20px;border:1px solid transparent;overflow:visible;line-height:1.35;outline:none;z-index:2}.obj:hover{border-color:#54a0e8}.obj.selected{border:2px solid #1470c9;box-shadow:0 0 0 1px rgba(20,112,201,.12);z-index:6}.obj.locked-object{opacity:.92}.obj-content{width:100%;height:100%;padding:4px 6px;white-space:pre-wrap;overflow:hidden;outline:none;cursor:text}.obj.title .obj-content{font-weight:700;text-align:center;border-radius:7px}.obj.contact .obj-content{border-radius:9px;font-weight:700}.obj.centered .obj-content{text-align:center}.obj-image{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}.shape-inner{width:100%;height:100%;pointer-events:none}.editable-table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed;background:rgba(255,255,255,.82)}.editable-table td{border:1px solid #59636b;padding:2px 3px;outline:none;vertical-align:middle;overflow:hidden}.move-handle{position:absolute;left:-12px;top:-12px;width:20px;height:20px;border-radius:50%;border:1px solid #1470c9;background:#fff;color:#1470c9;display:flex;align-items:center;justify-content:center;font-size:12px;cursor:move;z-index:10;user-select:none}.resize-dot{position:absolute;width:9px;height:9px;background:#fff;border:1px solid #1470c9;z-index:10}.rd-nw{left:-6px;top:-6px;cursor:nwse-resize}.rd-n{left:50%;top:-6px;transform:translateX(-50%);cursor:ns-resize}.rd-ne{right:-6px;top:-6px;cursor:nesw-resize}.rd-e{right:-6px;top:50%;transform:translateY(-50%);cursor:ew-resize}.rd-se{right:-6px;bottom:-6px;cursor:nwse-resize}.rd-s{left:50%;bottom:-6px;transform:translateX(-50%);cursor:ns-resize}.rd-sw{left:-6px;bottom:-6px;cursor:nesw-resize}.rd-w{left:-6px;top:50%;transform:translateY(-50%);cursor:ew-resize}
+.right{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.rtitle{padding:13px 12px;font-weight:700;font-size:15px;border-bottom:1px solid #dfe3e7}.rtabs{height:36px;border-bottom:1px solid #dfe3e7;display:flex}.rtab{flex:1;border:0;background:#fff;color:#555;cursor:pointer}.rtab.active{color:var(--blue);border-bottom:2px solid var(--blue);font-weight:600}.rscroll{overflow:auto;padding:12px;flex:1}.formrow{display:grid;grid-template-columns:80px 1fr;align-items:center;gap:7px;margin:7px 0;font-size:12px}.mini{padding:6px;border:1px solid #cfd5da;border-radius:4px;width:100%;min-width:0}.check{display:flex;gap:7px;align-items:center;font-size:12px;margin:7px 0}.hint{color:#5d6772;font-size:11px;line-height:1.45}.statusbar{height:28px;background:#fff;border-top:1px solid var(--line);display:flex;align-items:center;padding:0 10px;font-size:11px;color:#4d535a;gap:18px;flex:0 0 auto}.statusbar .msg{margin-right:auto}
+.modalback{display:none;position:fixed;inset:0;background:rgba(0,0,0,.38);z-index:80;align-items:center;justify-content:center}.modalback.show{display:flex}.modal{width:440px;max-height:90vh;overflow:auto;background:#fff;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.28);padding:20px}.modal.wide{width:620px}.modal h3{margin:0 0 10px}.modal p{font-size:13px;line-height:1.55;color:#4f5b61}.modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.card-preview{border:1px solid #cfd6dc;background:#fbf7ee;border-radius:8px;padding:20px;text-align:center;min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:8px}.card-preview .big{font-size:25px;font-weight:700;color:#173b3b}.card-preview .sub{font-size:14px;color:#5a625f}.policy{background:#f4faf7;border:1px solid #c8e0d5;padding:10px;border-radius:5px;font-size:12px;line-height:1.55}.print-block{display:none}
 @media(max-width:1350px){.workspace{grid-template-columns:330px minmax(590px,1fr) 285px}.paper{width:900px}}
+@media print{body>*{display:none!important}.print-block{display:block!important;padding:40mm 20mm;text-align:center;font-family:sans-serif}.print-block h1{font-size:26px}.print-block p{font-size:15px}}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="menubar">
-    <button class="menu">파일</button><button class="menu">편집</button><button class="menu">보기</button><button class="menu">삽입</button><button class="menu">도구</button><button class="menu">도움말</button>
-    <div class="brand"><span class="demo-chip">WEB DEMO</span><img src="demo_assets/app_icon.png" alt=""><b>주보편집기 V4.7.0</b></div>
+    <button class="menu" data-menu="file">파일</button><button class="menu" data-menu="edit">편집</button><button class="menu" data-menu="view">보기</button><button class="menu" data-menu="insert">삽입</button><button class="menu" data-menu="tools">도구</button><button class="menu" data-menu="help">도움말</button>
+    <div class="brand"><span class="demo-chip">FULL EDIT DEMO</span><img src="demo_assets/app_icon.png" alt=""><b>주보편집기 V4.7.0</b></div>
   </div>
   <div class="toolbar">
-    <button class="tool" data-demo="new"><span class="ico">📄</span>새로 만들기</button>
-    <button class="tool" data-demo="open"><span class="ico">📂</span>불러오기</button>
-    <button class="tool" id="saveLocal"><span class="ico">💾</span>저장</button>
+    <button class="tool" id="newBtn"><span class="ico">📄</span>새로 만들기</button>
+    <button class="tool" id="openLocal"><span class="ico">📂</span>불러오기</button>
+    <button class="tool" id="saveLocal"><span class="ico">💾</span>임시 저장</button>
     <div class="sep"></div>
-    <button class="tool locked"><span class="ico">📑</span>PDF 출력</button>
-    <button class="tool locked"><span class="ico">🏭</span>인쇄소 PDF</button>
-    <button class="tool locked"><span class="ico">🖨️</span>인쇄</button>
+    <button class="tool restricted output-lock" data-output="PDF 출력"><span class="ico">📑</span>PDF 출력</button>
+    <button class="tool restricted output-lock" data-output="인쇄소 PDF"><span class="ico">🏭</span>인쇄소 PDF</button>
+    <button class="tool restricted output-lock" data-output="인쇄"><span class="ico">🖨️</span>인쇄</button>
     <button class="tool" id="fitBtn"><span class="ico">🔎</span>화면 맞춤</button>
     <div class="sep"></div>
     <button class="tool" id="prevPage"><span class="ico">◀</span>이전 면</button>
     <button class="tool" id="nextPage"><span class="ico">▶</span>다음 면</button>
     <div class="sep"></div>
-    <button class="tool locked"><span class="ico">🎴</span>예배진행 카드</button>
-    <button class="tool locked"><span class="ico">📚</span>예배자료실</button>
+    <button class="tool" id="worshipCardBtn"><span class="ico">🎴</span>예배진행 카드</button>
+    <button class="tool" id="libraryBtn"><span class="ico">📚</span>예배자료실</button>
     <div class="sep"></div>
     <button class="tool" id="addText"><span class="ico">T</span>텍스트</button>
-    <button class="tool locked"><span class="ico">🖼️</span>이미지</button>
-    <button class="tool locked"><span class="ico">✚</span>아이콘</button>
-    <button class="tool locked"><span class="ico">▭</span>사각형</button>
-    <button class="tool locked"><span class="ico">▦</span>표</button>
+    <button class="tool" id="addImage"><span class="ico">🖼️</span>이미지</button>
+    <button class="tool" id="addIcon"><span class="ico">✚</span>아이콘</button>
+    <button class="tool" id="addRect"><span class="ico">▭</span>사각형</button>
+    <button class="tool" id="addTable"><span class="ico">▦</span>표</button>
   </div>
 
   <div class="workspace">
@@ -69,25 +70,25 @@ button,input,select,textarea{font:inherit}
       </div>
       <div class="context">
         <div class="panel active" id="panel-templates">
-          <h2>교회주보 템플릿</h2><p class="note">정식 프로그램과 동일한 화면 배치를 사용하고 예배 순서 내용만 교단별로 바꿉니다.</p>
-          <button class="preset selected"><b>장로교 · 개혁교회 표준형</b><span>묵도·신앙고백·교독문·대표기도 중심</span></button>
-          <button class="preset"><b>감리교 · 성결교 표준형</b><span>예배 순서 내용만 변경</span></button>
-          <button class="preset"><b>침례교 · 순복음 표준형</b><span>경배와 찬양 중심</span></button>
-          <button class="preset"><b>소형교회 심플형</b><span>짧은 순서 중심</span></button>
+          <h2>교회주보 템플릿</h2><p class="note">템플릿을 누르면 실제 예배 순서 내용이 바뀝니다. 이후 텍스트를 직접 수정할 수 있습니다.</p>
+          <button class="preset selected" data-preset="presbyterian"><b>장로교 · 개혁교회 표준형</b><span>묵도·신앙고백·교독문·대표기도 중심</span></button>
+          <button class="preset" data-preset="methodist"><b>감리교 · 성결교 표준형</b><span>찬송·기도·성경봉독·말씀 중심</span></button>
+          <button class="preset" data-preset="baptist"><b>침례교 · 순복음 표준형</b><span>경배와 찬양 중심</span></button>
+          <button class="preset" data-preset="simple"><b>소형교회 심플형</b><span>핵심 순서만 간결하게 구성</span></button>
           <div class="group" style="margin-top:18px"><strong>기준 템플릿</strong><button class="btn" style="width:100%" id="resetBtn">기준 원본주보로 복원</button></div>
         </div>
-        <div class="panel" id="panel-pages"><h2>페이지</h2><p class="note">주보는 바깥면과 안쪽면으로 관리합니다.</p><div class="list"><div class="listitem active" data-page="outside">1. 앞면 / 바깥면 / 표지</div><div class="listitem" data-page="inside">2. 뒷면 / 안쪽면</div></div></div>
-        <div class="panel" id="panel-backgrounds"><h2>배경지</h2><p class="note">정식 V4.7.0에 포함된 배경지 중 일부를 웹 데모에서 미리 적용할 수 있습니다.</p><div class="themegrid" id="themeGrid"></div></div>
-        <div class="panel" id="panel-clipart"><h2>클립아트</h2><p class="note">정식판에서는 예배·기도·성경·헌금 등 내장 아이콘을 배치할 수 있습니다.</p><div class="row"><button class="btn locked">✝ 십자가</button><button class="btn locked">📖 성경</button></div><div class="row"><button class="btn locked">🙏 기도</button><button class="btn locked">👥 성도</button></div></div>
-        <div class="panel" id="panel-fonts"><h2>글꼴</h2><div class="group"><strong>선택 개체</strong><select class="field" id="fontFamily"><option>Malgun Gothic</option><option>Batang</option><option>Gulim</option><option>Arial</option></select><div class="row"><button class="btn" id="fontDown">A−</button><button class="btn" id="fontUp">A＋</button><button class="btn" id="boldBtn"><b>B</b></button></div></div></div>
-        <div class="panel" id="panel-saved"><h2>저장된 항목</h2><p class="note">웹 데모에서는 현재 브라우저에 임시 저장됩니다. 정식판은 프로젝트(.cbp)와 자동저장을 지원합니다.</p><button class="btn" style="width:100%" id="loadLocal">브라우저 임시저장 불러오기</button></div>
-        <div class="panel" id="panel-library"><h2>예배자료실</h2><p class="note">성경·찬송가·찬양집 자료 관리 기능은 정식 Windows 프로그램에서 사용할 수 있습니다.</p><button class="btn locked" style="width:100%">예배자료실 열기</button></div>
-        <div class="panel" id="panel-settings"><h2>환경설정</h2><div class="group"><strong>편집 화면</strong><label class="check"><input type="checkbox" id="guideToggle" checked> 접힘선 / 안전여백 가이드 표시</label><label class="check"><input type="checkbox" checked> 같은 단 안 자유 배치</label></div><div class="group"><strong>웹 데모 안내</strong><p class="note">PDF 출력, 인쇄소용 PDF, 예배진행 카드, 예배자료실은 정식판에서 제공됩니다.</p></div></div>
+        <div class="panel" id="panel-pages"><h2>페이지</h2><p class="note">A4 가로 3단 주보의 바깥면과 안쪽면을 자유롭게 오가며 편집합니다.</p><div class="list"><div class="listitem active" data-page="outside">1. 앞면 / 바깥면 / 표지</div><div class="listitem" data-page="inside">2. 뒷면 / 안쪽면</div></div><div class="row"><button class="btn" id="clearCurrent">현재 면 초기화</button><button class="btn" id="duplicateSelected">선택 개체 복제</button></div></div>
+        <div class="panel" id="panel-backgrounds"><h2>배경지</h2><p class="note">V4.7.0에 포함된 배경지를 웹 데모에서도 실제 적용할 수 있습니다.</p><div class="themegrid" id="themeGrid"></div></div>
+        <div class="panel" id="panel-clipart"><h2>클립아트</h2><p class="note">아이콘을 눌러 현재 면에 삽입한 뒤 이동·크기 조절할 수 있습니다.</p><div class="clipgrid" id="clipGrid"></div></div>
+        <div class="panel" id="panel-fonts"><h2>글꼴</h2><div class="group"><strong>선택 개체</strong><select class="field" id="fontFamily"><option>Malgun Gothic</option><option>Batang</option><option>Gulim</option><option>Arial</option><option>Georgia</option></select><div class="row"><button class="btn" id="fontDown">A−</button><button class="btn" id="fontUp">A＋</button><button class="btn" id="boldBtn"><b>B</b></button></div></div></div>
+        <div class="panel" id="panel-saved"><h2>저장된 항목</h2><p class="note">파일로 내보내지는 않지만, 이 브라우저 안에서는 프로젝트와 자주 쓰는 개체를 임시 저장해 다시 사용할 수 있습니다.</p><div class="row"><button class="btn soft" id="saveProjectPanel">프로젝트 임시저장</button><button class="btn" id="loadLocal">불러오기</button></div><button class="btn" style="width:100%" id="saveSelected">선택 개체를 저장된 항목에 추가</button><div id="savedItemsList"></div></div>
+        <div class="panel" id="panel-library"><h2>예배자료실</h2><p class="note">성경 본문 위치, 찬송 순서, 예배 안내 문구를 찾아 현재 주보에 삽입해보세요. 데모에서는 저작권 본문/가사는 제공하지 않습니다.</p><input class="field" id="librarySearch" placeholder="예: 시편, 찬송, 광고"><div id="libraryCards"></div><div class="group" style="margin-top:18px"><strong>직접 입력</strong><input class="field" id="bibleRef" placeholder="성경 위치 예: 요한복음 3:16"><button class="btn" style="width:100%;margin-top:7px" id="insertBibleRef">성경봉독 항목 삽입</button><div class="row"><input class="field" id="hymnNo" placeholder="찬송가 장"><input class="field" id="hymnTitle" placeholder="제목(선택)"></div><button class="btn" style="width:100%" id="insertHymn">찬송 항목 삽입</button></div></div>
+        <div class="panel" id="panel-settings"><h2>환경설정</h2><div class="group"><strong>편집 화면</strong><label class="check"><input type="checkbox" id="guideToggle" checked> 접힘선 / 안전여백 가이드 표시</label><label class="check"><input type="checkbox" id="snapToggle" checked> 이동·크기 조절 시 5단위 맞춤</label><label class="check"><input type="checkbox" id="autosaveToggle" checked> 15초마다 브라우저 임시저장</label></div><div class="group"><strong>웹 데모 정책</strong><div class="policy">편집 기능은 자유롭게 체험할 수 있습니다.<br><b>PDF 출력 · 인쇄소 PDF · 실제 인쇄만 제한</b>됩니다. 프로젝트 저장은 브라우저 내부 임시저장만 지원합니다.</div></div></div>
       </div>
     </section>
 
     <main class="center">
-      <div class="doctabs"><div class="doctab">우리교회 주보</div><button class="btn plus locked">+</button></div>
+      <div class="doctabs"><div class="doctab">우리교회 주보</div><button class="btn plus" id="newDocSmall" title="새 문서">+</button></div>
       <div class="canvasbar"><button class="btn" id="zoomOut">−</button><span class="zoomlabel" id="zoomLabel">78%</span><button class="btn" id="zoomIn">＋</button><button class="btn" id="fitSmall">화면 맞춤</button><div class="grow"></div><span class="fitstatus" id="selStatus">개체를 클릭해 직접 수정하세요</span></div>
       <div class="viewport" id="viewport"><div class="paper-wrap" id="paperWrap"><div class="paper" id="paper"><div class="fold f1"></div><div class="fold f2"></div></div></div></div>
     </main>
@@ -96,96 +97,191 @@ button,input,select,textarea{font:inherit}
       <div class="rtitle">속성</div><div class="rtabs"><button class="rtab active">개체</button><button class="rtab">페이지</button></div>
       <div class="rscroll">
         <div class="group"><strong>선택 개체</strong><div class="formrow"><label>요소 이름</label><input class="mini" id="propName" value="선택 없음"></div><div class="formrow"><label>역할</label><input class="mini" id="propRole" value="-"></div><label class="check"><input type="checkbox" id="propLock"> 잠금</label></div>
-        <div class="group"><strong>위치 / 크기</strong><div class="formrow"><label>소속 단</label><select class="mini" id="propPanel"><option>1단</option><option>2단</option><option>3단</option></select></div><div class="formrow"><label>X</label><input class="mini" type="number" id="propX"></div><div class="formrow"><label>Y</label><input class="mini" type="number" id="propY"></div><div class="formrow"><label>너비</label><input class="mini" type="number" id="propW"></div><div class="formrow"><label>높이</label><input class="mini" type="number" id="propH"></div></div>
-        <div class="group"><strong>텍스트</strong><div class="formrow"><label>크기</label><input class="mini" type="number" id="propFont" value="16"></div><div class="formrow"><label>글자색</label><input class="mini" type="color" id="propColor" value="#3f3026"></div><label class="check"><input type="checkbox" id="propBold"> 굵게</label></div>
-        <p class="hint">TIP  웹 데모에서도 글자를 직접 클릭해 수정할 수 있습니다. 정식판에서는 파란 조절점 8개, 표 편집, 이미지 교체, 자동맞춤 등 전체 기능을 사용할 수 있습니다.</p>
-        <button class="btn danger" id="deleteObj" style="width:100%;margin-top:10px">선택 요소 삭제</button>
+        <div class="group"><strong>위치 / 크기</strong><div class="formrow"><label>소속 단</label><select class="mini" id="propPanel"><option value="1">1단</option><option value="2">2단</option><option value="3">3단</option></select></div><div class="formrow"><label>X</label><input class="mini" type="number" id="propX"></div><div class="formrow"><label>Y</label><input class="mini" type="number" id="propY"></div><div class="formrow"><label>너비</label><input class="mini" type="number" id="propW"></div><div class="formrow"><label>높이</label><input class="mini" type="number" id="propH"></div></div>
+        <div class="group"><strong>스타일</strong><div class="formrow"><label>글자 크기</label><input class="mini" type="number" id="propFont" value="16"></div><div class="formrow"><label>글자색</label><input class="mini" type="color" id="propColor" value="#3f3026"></div><div class="formrow"><label>배경색</label><input class="mini" type="color" id="propFill" value="#ffffff"></div><div class="formrow"><label>테두리색</label><input class="mini" type="color" id="propBorder" value="#59636b"></div><label class="check"><input type="checkbox" id="propBold"> 굵게</label></div>
+        <p class="hint">TIP  개체 선택 후 왼쪽 위 이동 핸들(✥)로 움직이고, 파란 조절점 8개로 크기를 바꿀 수 있습니다. 텍스트와 표 셀은 직접 클릭해 편집하세요.</p>
+        <button class="btn" id="duplicateObj" style="width:100%;margin-top:6px">선택 요소 복제</button><button class="btn danger" id="deleteObj" style="width:100%;margin-top:6px">선택 요소 삭제</button>
       </div>
     </aside>
   </div>
-  <div class="statusbar"><span class="msg" id="statusMsg">앞면·뒷면 기준 원본주보 템플릿 로드</span><span id="statusPage">페이지: 1 / 2</span><span>용지: A4</span><span>방향: 가로</span><span>여백: 없음(전체면)</span></div>
+  <div class="statusbar"><span class="msg" id="statusMsg">편집 기능 전체 체험 가능 · PDF/인쇄만 제한됩니다.</span><span id="statusPage">페이지: 1 / 2</span><span>용지: A4</span><span>방향: 가로</span><span>여백: 없음(전체면)</span></div>
 </div>
-<div class="modalback" id="modal"><div class="modal"><h3>웹 데모 기능입니다</h3><p id="modalText">이 기능은 정식 Windows 프로그램에서 사용할 수 있습니다.</p><div class="actions"><button class="btn" id="modalClose">계속 체험하기</button><button class="btn primary" onclick="location.href='index.html#download'">정식 버전 보기</button></div></div></div>
+<div class="menupop" id="menuPop"></div>
+<input type="file" id="imageInput" accept="image/*" hidden>
+<div class="modalback" id="modal"><div class="modal"><h3 id="modalTitle">안내</h3><p id="modalText"></p><div class="actions"><button class="btn" id="modalClose">계속 체험하기</button><button class="btn primary" id="downloadBtn" onclick="location.href='index.html#download'">정식 버전 보기</button></div></div></div>
+<div class="modalback" id="cardModal"><div class="modal wide"><h3>예배진행 카드 만들기</h3><p>데모에서도 카드 내용을 만들고 현재 주보에 삽입해볼 수 있습니다.</p><div class="row"><input class="field" id="cardTitle" value="주일오전예배"><input class="field" id="cardLeader" value="인도: OOO 목사"></div><div class="row"><input class="field" id="cardTime" value="오전 11:00"><input class="field" id="cardNext" value="다음 순서: 찬송"></div><div class="card-preview" id="cardPreview"><div class="big"></div><div class="sub"></div><div class="sub"></div><div class="sub"></div></div><div class="actions"><button class="btn" id="cardClose">닫기</button><button class="btn primary" id="insertCard">현재 주보에 삽입</button></div></div></div>
+<div class="print-block"><h1>웹 데모에서는 인쇄/PDF 출력이 제한됩니다.</h1><p>편집 기능은 자유롭게 체험할 수 있으며, 실제 출력과 PDF 저장은 Windows 정식 버전에서 사용할 수 있습니다.</p></div>
 <script>
 const BASE_W=1600, BASE_H=1131;
 const paper=document.getElementById('paper'),wrap=document.getElementById('paperWrap');
-let currentPage='outside',zoom=.78,selected=null,drag=null;
+let currentPage='outside',zoom=.78,selected=null,currentTheme='기본',currentPreset='presbyterian',activeGesture=null,idSeq=1;
 const state={outside:[],inside:[]};
+const PROJECT_KEY='churchBulletinDemoV2', ITEMS_KEY='churchBulletinDemoItemsV2';
 const themePairs={
-  '기본':{outside:'demo_assets/church_outside.png',inside:'demo_assets/church_inside.png'},
-  '성탄절':{outside:'demo_assets/templates/christmas_outside_bg.jpg',inside:'demo_assets/templates/christmas_inside_bg.jpg'},
-  '부활절':{outside:'demo_assets/templates/easter_outside_bg.jpg',inside:'demo_assets/templates/easter_inside_bg.jpg'},
-  '추수감사':{outside:'demo_assets/templates/thanksgiving_outside_bg.jpg',inside:'demo_assets/templates/thanksgiving_inside_bg.jpg'},
-  '봄':{outside:'demo_assets/templates/spring_outside_bg.jpg',inside:'demo_assets/templates/spring_inside_bg.jpg'},
-  '여름':{outside:'demo_assets/templates/summer_outside_bg.jpg',inside:'demo_assets/templates/summer_inside_bg.jpg'},
-  '가을':{outside:'demo_assets/templates/autumn_outside_bg.jpg',inside:'demo_assets/templates/autumn_inside_bg.jpg'},
-  '겨울':{outside:'demo_assets/templates/winter_outside_bg.jpg',inside:'demo_assets/templates/winter_inside_bg.jpg'},
-  '남색':{outside:'demo_assets/templates/navy_outside_bg.jpg',inside:'demo_assets/templates/navy_inside_bg.jpg'},
-  '버건디':{outside:'demo_assets/templates/burgundy_outside_bg.jpg',inside:'demo_assets/templates/burgundy_inside_bg.jpg'},
-  '숲초록':{outside:'demo_assets/templates/forest_outside_bg.jpg',inside:'demo_assets/templates/forest_inside_bg.jpg'},
-  '청년부':{outside:'demo_assets/templates/youth_outside_bg.jpg',inside:'demo_assets/templates/youth_inside_bg.jpg'}
+ '기본':{outside:'demo_assets/church_outside.png',inside:'demo_assets/church_inside.png'},
+ '아이보리':{outside:'demo_assets/templates/ivory_outside_bg.jpg',inside:'demo_assets/templates/ivory_inside_bg.jpg'},
+ '성탄절':{outside:'demo_assets/templates/christmas_outside_bg.jpg',inside:'demo_assets/templates/christmas_inside_bg.jpg'},
+ '대림절':{outside:'demo_assets/templates/advent_outside_bg.jpg',inside:'demo_assets/templates/advent_inside_bg.jpg'},
+ '부활절':{outside:'demo_assets/templates/easter_outside_bg.jpg',inside:'demo_assets/templates/easter_inside_bg.jpg'},
+ '신년':{outside:'demo_assets/templates/newyear_outside_bg.jpg',inside:'demo_assets/templates/newyear_inside_bg.jpg'},
+ '추수감사':{outside:'demo_assets/templates/thanksgiving_outside_bg.jpg',inside:'demo_assets/templates/thanksgiving_inside_bg.jpg'},
+ '봄':{outside:'demo_assets/templates/spring_outside_bg.jpg',inside:'demo_assets/templates/spring_inside_bg.jpg'},
+ '여름':{outside:'demo_assets/templates/summer_outside_bg.jpg',inside:'demo_assets/templates/summer_inside_bg.jpg'},
+ '가을':{outside:'demo_assets/templates/autumn_outside_bg.jpg',inside:'demo_assets/templates/autumn_inside_bg.jpg'},
+ '겨울':{outside:'demo_assets/templates/winter_outside_bg.jpg',inside:'demo_assets/templates/winter_inside_bg.jpg'},
+ '남색':{outside:'demo_assets/templates/navy_outside_bg.jpg',inside:'demo_assets/templates/navy_inside_bg.jpg'},
+ '버건디':{outside:'demo_assets/templates/burgundy_outside_bg.jpg',inside:'demo_assets/templates/burgundy_inside_bg.jpg'},
+ '숲초록':{outside:'demo_assets/templates/forest_outside_bg.jpg',inside:'demo_assets/templates/forest_inside_bg.jpg'},
+ '청년부':{outside:'demo_assets/templates/youth_outside_bg.jpg',inside:'demo_assets/templates/youth_inside_bg.jpg'},
+ '어린이':{outside:'demo_assets/templates/children_outside_bg.jpg',inside:'demo_assets/templates/children_inside_bg.jpg'},
+ '린넨':{outside:'demo_assets/templates/linen_outside_bg.jpg',inside:'demo_assets/templates/linen_inside_bg.jpg'},
+ '슬레이트':{outside:'demo_assets/templates/slate_outside_bg.jpg',inside:'demo_assets/templates/slate_inside_bg.jpg'},
+ '테라코타':{outside:'demo_assets/templates/terracotta_outside_bg.jpg',inside:'demo_assets/templates/terracotta_inside_bg.jpg'},
+ '잉크':{outside:'demo_assets/templates/ink_outside_bg.jpg',inside:'demo_assets/templates/ink_inside_bg.jpg'},
+ '모래':{outside:'demo_assets/templates/sand_outside_bg.jpg',inside:'demo_assets/templates/sand_inside_bg.jpg'},
+ '안개':{outside:'demo_assets/templates/fog_outside_bg.jpg',inside:'demo_assets/templates/fog_inside_bg.jpg'},
+ '플럼':{outside:'demo_assets/templates/plum_outside_bg.jpg',inside:'demo_assets/templates/plum_inside_bg.jpg'}
 };
-let currentTheme='기본';
-function pct(v,b){return (v/b*100)+'%'}
-function addObj(page,o){state[page].push({...o,id:crypto.randomUUID?crypto.randomUUID():Math.random().toString(36).slice(2)})}
-function seed(){
-  state.outside=[];state.inside=[];
-  addObj('outside',{name:'광고',role:'title',x:140,y:55,w:260,h:50,text:'광 고',fs:25,bold:true,fill:'#801411',color:'#fff',cls:'title'});
-  addObj('outside',{name:'광고 내용',role:'content',x:45,y:125,w:440,h:585,text:'1) 환영합니다\n오늘 교회를 처음 방문하신 모든 분들을 주님의 이름으로 환영합니다.\n\n2) 성경읽기\n성경 읽기와 쓰기에 힘씀으로 하나님의 은혜를 깊이 체험하는 성도들이 됩시다.\n\n3) 이번 달 행사\n이번 달 진행되는 행사 안내를 입력하세요.\n\n4) 여름성경학교\n여름성경학교 알림과 준비사항을 입력하세요.\n\n5) 교사 헌신예배\n다음 주 주일 오후예배는 교사 헌신예배로 드려집니다.',fs:16,color:'#3f3026',cls:'text'});
-  addObj('outside',{name:'예배시간',role:'title',x:170,y:765,w:190,h:40,text:'예배시간',fs:18,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
-  addObj('outside',{name:'예배시간 내용',role:'schedule',x:45,y:815,w:440,h:215,text:'주일예배(1부)  .................  오전 11:00\n오후예배(주일)  .................  오후  2:20\n수요저녁예배    .................  오후  7:30\n새벽예배        .................  오전  5:00\n금요기도회      .................  오후  8:00\n유초등부예배    .................  오후  2:00\n학생청년예배    .................  오후  2:00',fs:14,color:'#3f3026',cls:'text'});
-  addObj('outside',{name:'교회 소개 제목',role:'title',x:595,y:70,w:410,h:90,text:'OO교회로\n여러분을 환영합니다!',fs:25,bold:true,color:'#315f4e',cls:'text centered'});
-  addObj('outside',{name:'교회 소개 내용',role:'content',x:575,y:225,w:445,h:610,text:'이곳에 우리 교회를 소개하는 문구를 입력하세요.\n\n교회의 설립 배경, 지향하는 신앙의 방향, 성도들에게 전하고 싶은 메시지 등을 자유롭게 작성하실 수 있습니다.\n\n이 텍스트 상자를 클릭하여 내용을 직접 수정해 주세요.',fs:16,color:'#3f3026',cls:'text'});
-  addObj('outside',{name:'호수',role:'issue',x:1230,y:100,w:250,h:36,text:'제 O권 O호',fs:17,color:'#3f3026',cls:'text centered'});
-  const d=new Date(); addObj('outside',{name:'발행일',role:'date',x:1230,y:150,w:250,h:36,text:`${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`,fs:17,color:'#3f3026',cls:'text centered'});
-  addObj('outside',{name:'교회 연락처',role:'contact',x:1085,y:900,w:495,h:190,text:'OO교회\n담임목사  성함을 입력하세요\n주소  주소를 입력하세요\n전화  000-000-0000   팩스 000-000-0000\n홈페이지  www.example.com',fs:15,bold:true,color:'#3f3026',cls:'contact'});
-
-  addObj('inside',{name:'주일오전예배',role:'title',x:130,y:45,w:245,h:45,text:'오전예배(주일)',fs:23,bold:true,fill:'#801411',color:'#fff',cls:'title'});
-  addObj('inside',{name:'주일오전예배 시간',role:'schedule',x:395,y:50,w:110,h:36,text:'오전 11:00',fs:14,color:'#3f3026',cls:'text centered'});
-  addObj('inside',{name:'주일오전 순서',role:'content',x:45,y:165,w:465,h:610,text:'묵도                 다 같이\n신앙고백   사도신경   다 같이\n찬송       OO장       다 같이\n교독문     OO번       다 같이\n대표기도              OOO 집사\n성경봉독   본문 입력   다 같이\n찬양                  찬양대\n말씀증거   제목 입력   OOO 목사\n헌금                  다 같이\n축도                  OOO 목사',fs:15,color:'#3f3026',cls:'text'});
-  addObj('inside',{name:'주일오후예배',role:'title',x:650,y:45,w:250,h:42,text:'오후예배(주일)',fs:22,bold:true,fill:'#801411',color:'#fff',cls:'title'});
-  addObj('inside',{name:'주일오후 순서',role:'content',x:635,y:95,w:390,h:220,text:'찬송       OO장       다 같이\n성경       본문 입력   다 같이\n기도                  다 같이\n특송                  OOO\n설교       제목 입력   OOO 목사\n주기도                다 같이',fs:14,color:'#3f3026',cls:'text'});
-  addObj('inside',{name:'수요저녁예배',role:'title',x:650,y:345,w:250,h:42,text:'수요저녁예배',fs:21,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
-  addObj('inside',{name:'수요예배 순서',role:'content',x:635,y:395,w:390,h:220,text:'찬송       OO장       다 같이\n성경       본문 입력   다 같이\n기도                  OOO 권사\n특송                  원하는 분\n설교       제목 입력   OOO 목사\n주기도                다 같이',fs:14,color:'#3f3026',cls:'text'});
-  addObj('inside',{name:'헌금 제목',role:'title',x:1160,y:45,w:310,h:42,text:'귀한 예물 드리신 분',fs:21,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
-  addObj('inside',{name:'헌금 명단',role:'content',x:1095,y:100,w:465,h:705,text:'십일조헌금\nOOO OOO OOO OOO OOO\n\n감사헌금\nOOO OOO OOO OOO OOO OOO\n\n선교헌금\nOOO OOO OOO\n\n구제헌금\nOOO OOO OOO\n\n장학헌금\nOOO OOO\n\n꽃 헌화\nOOO',fs:16,color:'#3f3026',cls:'text'});
+const icons=[
+ ['십자가','cross.png'],['성경','bible.png'],['성경+십자가','bible_cross.png'],['기도','prayer.png'],['성도','people.png'],['교회','church.png'],['헌금','offering.png'],['사랑','heart.png'],['광고','megaphone.png'],['달력','calendar.png'],['새벽','sunrise.png'],['나뭇잎','leaf.png']
+];
+const libraryData=[
+ {title:'성경봉독',desc:'시편 23편 · 본문 위치 표시',text:'성경봉독\n시편 23편\n(본문을 입력하세요)'},
+ {title:'성경봉독',desc:'요한복음 3:16 · 본문 위치 표시',text:'성경봉독\n요한복음 3:16\n(본문을 입력하세요)'},
+ {title:'찬송',desc:'찬송가 장 번호를 넣는 기본 순서',text:'찬송\n찬송가 OO장\n다 같이'},
+ {title:'대표기도',desc:'기도 담당자 입력용',text:'대표기도\nOOO 집사'},
+ {title:'교회소식',desc:'광고/공지 기본 문구',text:'교회소식\n이번 주 교회 소식을 입력하세요.'},
+ {title:'봉헌',desc:'헌금 순서 기본 문구',text:'봉헌\n다 같이'}
+];
+const worshipPresets={
+ presbyterian:{morning:'묵도                 다 같이\n신앙고백   사도신경   다 같이\n찬송       OO장       다 같이\n교독문     OO번       다 같이\n대표기도              OOO 집사\n성경봉독   본문 입력   다 같이\n찬양                  찬양대\n말씀증거   제목 입력   OOO 목사\n헌금                  다 같이\n축도                  OOO 목사',afternoon:'찬송       OO장       다 같이\n성경       본문 입력   다 같이\n기도                  다 같이\n특송                  OOO\n설교       제목 입력   OOO 목사\n주기도                다 같이'},
+ methodist:{morning:'예배로의 부름          인도자\n찬송       OO장       다 같이\n신앙고백              다 같이\n기도                  OOO 권사\n성경봉독   본문 입력   인도자\n찬양                  찬양대\n말씀       제목 입력   OOO 목사\n봉헌                  다 같이\n교회소식              인도자\n축도                  OOO 목사',afternoon:'찬양                  다 같이\n기도                  OOO 집사\n성경봉독   본문 입력\n말씀       제목 입력   OOO 목사\n합심기도              다 같이\n주기도                다 같이'},
+ baptist:{morning:'경배와 찬양            다 같이\n환영과 교제            인도자\n대표기도              OOO 집사\n성경봉독   본문 입력\n특별찬양              찬양팀\n말씀       제목 입력   OOO 목사\n결단찬양              다 같이\n봉헌                  다 같이\n광고                  인도자\n축복기도              OOO 목사',afternoon:'경배와 찬양            찬양팀\n기도                  다 같이\n간증                  OOO\n말씀       제목 입력   OOO 목사\n합심기도              다 같이'},
+ simple:{morning:'찬송       OO장       다 같이\n기도                  OOO\n성경봉독   본문 입력\n말씀       제목 입력   OOO 목사\n헌금                  다 같이\n광고                  인도자\n축도                  OOO 목사',afternoon:'찬송       OO장\n기도       다 같이\n말씀       OOO 목사\n주기도     다 같이'}
+};
+function pct(n,total){return (n/total*100)+'%'}
+function uid(){return 'o'+Date.now().toString(36)+(idSeq++).toString(36)}
+function addObj(page,o){state[page].push(Object.assign({id:uid(),type:'text',name:'개체',role:'content',x:100,y:100,w:250,h:80,fs:16,color:'#3f3026',fill:'transparent',border:'#59636b',bold:false,fontFamily:'Malgun Gothic',locked:false},o));return state[page].at(-1)}
+function seed(){state.outside=[];state.inside=[];
+ addObj('outside',{name:'주일예배안내',role:'title',x:120,y:55,w:330,h:48,text:'주일예배 안내',fs:23,bold:true,fill:'#315f4e',color:'#fff',cls:'title'});
+ addObj('outside',{name:'예배시간',role:'content',x:45,y:155,w:470,h:350,text:'주일오전예배    .................  오전 11:00\n주일오후예배    .................  오후  2:00\n학생청년예배    .................  오후  2:00',fs:14,color:'#3f3026'});
+ addObj('outside',{name:'교회 소개 제목',role:'title',x:595,y:70,w:410,h:90,text:'OO교회로\n여러분을 환영합니다!',fs:25,bold:true,color:'#315f4e',cls:'centered'});
+ addObj('outside',{name:'교회 소개 내용',role:'content',x:575,y:225,w:445,h:610,text:'이곳에 우리 교회를 소개하는 문구를 입력하세요.\n\n교회의 설립 배경, 지향하는 신앙의 방향, 성도들에게 전하고 싶은 메시지 등을 자유롭게 작성하실 수 있습니다.\n\n이 텍스트 상자를 클릭하여 내용을 직접 수정해 주세요.',fs:16,color:'#3f3026'});
+ addObj('outside',{name:'호수',role:'issue',x:1230,y:100,w:250,h:36,text:'제 O권 O호',fs:17,color:'#3f3026',cls:'centered'});
+ const d=new Date();addObj('outside',{name:'발행일',role:'date',x:1230,y:150,w:250,h:36,text:`${d.getFullYear()}. ${d.getMonth()+1}. ${d.getDate()}.`,fs:17,color:'#3f3026',cls:'centered'});
+ addObj('outside',{name:'교회 연락처',role:'contact',x:1085,y:900,w:495,h:190,text:'OO교회\n담임목사  성함을 입력하세요\n주소  주소를 입력하세요\n전화  000-000-0000   팩스 000-000-0000\n홈페이지  www.example.com',fs:15,bold:true,color:'#3f3026',fill:'rgba(234,240,213,.92)',cls:'contact'});
+ addObj('inside',{name:'주일오전예배',role:'title',x:130,y:45,w:245,h:45,text:'오전예배(주일)',fs:23,bold:true,fill:'#801411',color:'#fff',cls:'title'});
+ addObj('inside',{name:'주일오전예배 시간',role:'schedule',x:395,y:50,w:110,h:36,text:'오전 11:00',fs:14,color:'#3f3026',cls:'centered'});
+ addObj('inside',{name:'주일오전 순서',role:'content',x:45,y:165,w:465,h:610,text:worshipPresets[currentPreset].morning,fs:15,color:'#3f3026'});
+ addObj('inside',{name:'주일오후예배',role:'title',x:650,y:45,w:250,h:42,text:'오후예배(주일)',fs:22,bold:true,fill:'#801411',color:'#fff',cls:'title'});
+ addObj('inside',{name:'주일오후 순서',role:'content',x:635,y:95,w:390,h:220,text:worshipPresets[currentPreset].afternoon,fs:14,color:'#3f3026'});
+ addObj('inside',{name:'수요저녁예배',role:'title',x:650,y:345,w:250,h:42,text:'수요저녁예배',fs:21,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
+ addObj('inside',{name:'수요예배 순서',role:'content',x:635,y:395,w:390,h:220,text:'찬송       OO장       다 같이\n성경       본문 입력   다 같이\n기도                  OOO 권사\n특송                  원하는 분\n설교       제목 입력   OOO 목사\n주기도                다 같이',fs:14,color:'#3f3026'});
+ addObj('inside',{name:'헌금 제목',role:'title',x:1160,y:45,w:310,h:42,text:'귀한 예물 드리신 분',fs:21,bold:true,fill:'#264e2a',color:'#fff',cls:'title'});
+ addObj('inside',{name:'헌금 명단',role:'content',x:1095,y:100,w:465,h:705,text:'십일조헌금\nOOO OOO OOO OOO OOO\n\n감사헌금\nOOO OOO OOO OOO OOO OOO\n\n선교헌금\nOOO OOO OOO\n\n구제헌금\nOOO OOO OOO\n\n장학헌금\nOOO OOO\n\n꽃 헌화\nOOO',fs:16,color:'#3f3026'});
+ selected=null;
+}
+function snap(v){return document.getElementById('snapToggle').checked?Math.round(v/5)*5:v}
+function objectPanel(o){return Math.max(1,Math.min(3,Math.floor((o.x+o.w/2)/(BASE_W/3))+1))}
+function applyObjectStyle(el,o){
+ Object.assign(el.style,{left:pct(o.x,BASE_W),top:pct(o.y,BASE_H),width:pct(o.w,BASE_W),height:pct(o.h,BASE_H),fontSize:(o.fs||16)*paper.clientWidth/BASE_W+'px',color:o.color||'#3f3026',fontWeight:o.bold?'700':'400',fontFamily:o.fontFamily||'Malgun Gothic',background:o.type==='rect'||o.type==='text'?(o.fill||'transparent'):'transparent',borderColor:o.type==='rect'?(o.border||'#59636b'):''});
+ if(o.type==='rect'){el.style.borderStyle='solid';el.style.borderWidth='1px';}
 }
 function render(){
-  paper.innerHTML='<div class="fold f1"></div><div class="fold f2"></div>';
-  paper.style.backgroundImage=`url('${themePairs[currentTheme][currentPage]}')`;
-  state[currentPage].forEach(o=>{
-    const el=document.createElement('div');el.className='obj '+(o.cls||'text');el.dataset.id=o.id;el.contentEditable=!o.locked;
-    Object.assign(el.style,{left:pct(o.x,BASE_W),top:pct(o.y,BASE_H),width:pct(o.w,BASE_W),height:pct(o.h,BASE_H),fontSize:(o.fs||16)*paper.clientWidth/BASE_W+'px',color:o.color||'#3f3026',fontWeight:o.bold?'700':'400',background:o.fill||'transparent'});
-    el.textContent=o.text; el.addEventListener('click',e=>{e.stopPropagation();select(o.id)}); el.addEventListener('input',()=>{o.text=el.innerText});
-    paper.appendChild(el);
-  });
-  document.querySelectorAll('.fold').forEach(f=>f.style.display=document.getElementById('guideToggle').checked?'block':'none');
-  document.getElementById('statusPage').textContent='페이지: '+(currentPage==='outside'?'1':'2')+' / 2';
-  setZoom(zoom,false);
+ const selectedId=selected&&selected.id;
+ paper.innerHTML='<div class="fold f1"></div><div class="fold f2"></div>';
+ const pair=themePairs[currentTheme]||themePairs['기본'];paper.style.backgroundImage=`url('${pair[currentPage]}')`;
+ state[currentPage].forEach(o=>{
+  const el=document.createElement('div');el.className='obj '+(o.cls||'')+(o.locked?' locked-object':'');el.dataset.id=o.id;applyObjectStyle(el,o);
+  if(o.type==='image'||o.type==='icon'){
+   const img=document.createElement('img');img.className='obj-image';img.src=o.src||'';img.alt=o.name||'';el.appendChild(img);
+  }else if(o.type==='rect'){
+   const inner=document.createElement('div');inner.className='shape-inner';el.appendChild(inner);
+  }else if(o.type==='table'){
+   const tbl=document.createElement('table');tbl.className='editable-table';(o.tableData||[['','',''],['','',''],['','','']]).forEach((row,ri)=>{const tr=document.createElement('tr');row.forEach((cell,ci)=>{const td=document.createElement('td');td.contentEditable=!o.locked;td.textContent=cell;td.addEventListener('input',()=>{o.tableData[ri][ci]=td.innerText;markDirty()});td.addEventListener('click',e=>e.stopPropagation());tr.appendChild(td)});tbl.appendChild(tr)});el.appendChild(tbl);
+  }else{
+   const content=document.createElement('div');content.className='obj-content';content.contentEditable=!o.locked;content.textContent=o.text||'';content.addEventListener('input',()=>{o.text=content.innerText;markDirty()});content.addEventListener('click',e=>{e.stopPropagation();select(o.id)});el.appendChild(content);
+  }
+  el.addEventListener('click',e=>{e.stopPropagation();select(o.id)});
+  if(selectedId===o.id){el.classList.add('selected');addHandles(el,o)}
+  paper.appendChild(el);
+ });
+ document.querySelectorAll('.fold').forEach(f=>f.style.display=document.getElementById('guideToggle').checked?'block':'none');
+ document.getElementById('statusPage').textContent='페이지: '+(currentPage==='outside'?'1':'2')+' / 2';setZoom(zoom,false);syncProps();updateThemeActive();
 }
-function select(id){selected=state[currentPage].find(o=>o.id===id)||null;document.querySelectorAll('.obj').forEach(e=>e.classList.toggle('selected',e.dataset.id===id));syncProps();}
-function syncProps(){const s=selected;document.getElementById('propName').value=s?s.name:'선택 없음';document.getElementById('propRole').value=s?s.role:'-';document.getElementById('propX').value=s?Math.round(s.x):'';document.getElementById('propY').value=s?Math.round(s.y):'';document.getElementById('propW').value=s?Math.round(s.w):'';document.getElementById('propH').value=s?Math.round(s.h):'';document.getElementById('propFont').value=s?s.fs:'';document.getElementById('propColor').value=s?s.color||'#3f3026':'#3f3026';document.getElementById('propBold').checked=!!(s&&s.bold);document.getElementById('selStatus').textContent=s?`선택: ${s.name}`:'개체를 클릭해 직접 수정하세요';}
-function applyProp(key,val){if(!selected)return;selected[key]=val;render();select(selected.id)}
+function addHandles(el,o){if(o.locked)return;const move=document.createElement('div');move.className='move-handle';move.textContent='✥';move.title='이동';move.addEventListener('pointerdown',e=>startGesture(e,o,el,'move'));el.appendChild(move);['nw','n','ne','e','se','s','sw','w'].forEach(dir=>{const h=document.createElement('div');h.className='resize-dot rd-'+dir;h.dataset.dir=dir;h.addEventListener('pointerdown',e=>startGesture(e,o,el,dir));el.appendChild(h)})}
+function startGesture(e,o,el,mode){e.preventDefault();e.stopPropagation();const rect=paper.getBoundingClientRect();activeGesture={mode,o,el,sx:e.clientX,sy:e.clientY,ox:o.x,oy:o.y,ow:o.w,oh:o.h,bx:BASE_W/rect.width,by:BASE_H/rect.height};window.addEventListener('pointermove',onGestureMove);window.addEventListener('pointerup',endGesture,{once:true})}
+function onGestureMove(e){if(!activeGesture)return;const g=activeGesture,dx=(e.clientX-g.sx)*g.bx,dy=(e.clientY-g.sy)*g.by;let x=g.ox,y=g.oy,w=g.ow,h=g.oh;
+ if(g.mode==='move'){x=g.ox+dx;y=g.oy+dy}else{if(g.mode.includes('e'))w=g.ow+dx;if(g.mode.includes('s'))h=g.oh+dy;if(g.mode.includes('w')){x=g.ox+dx;w=g.ow-dx}if(g.mode.includes('n')){y=g.oy+dy;h=g.oh-dy}}
+ w=Math.max(30,w);h=Math.max(24,h);x=Math.max(0,Math.min(BASE_W-w,x));y=Math.max(0,Math.min(BASE_H-h,y));g.o.x=snap(x);g.o.y=snap(y);g.o.w=snap(w);g.o.h=snap(h);applyObjectStyle(g.el,g.o);syncProps();markDirty(false)}
+function endGesture(){window.removeEventListener('pointermove',onGestureMove);activeGesture=null;render();markDirty()}
+function select(id){selected=state[currentPage].find(o=>o.id===id)||null;render()}
+function syncProps(){const s=selected;const $=id=>document.getElementById(id);$('propName').value=s?s.name:'선택 없음';$('propRole').value=s?s.role:'-';$('propX').value=s?Math.round(s.x):'';$('propY').value=s?Math.round(s.y):'';$('propW').value=s?Math.round(s.w):'';$('propH').value=s?Math.round(s.h):'';$('propFont').value=s?s.fs||16:'';$('propColor').value=s&&validHex(s.color)?s.color:'#3f3026';$('propFill').value=s&&validHex(s.fill)?s.fill:'#ffffff';$('propBorder').value=s&&validHex(s.border)?s.border:'#59636b';$('propBold').checked=!!(s&&s.bold);$('propLock').checked=!!(s&&s.locked);$('propPanel').value=s?String(objectPanel(s)):'1';$('selStatus').textContent=s?`선택: ${s.name}`:'개체를 클릭해 직접 수정하세요';if(s&&s.fontFamily)$('fontFamily').value=s.fontFamily}
+function validHex(v){return typeof v==='string'&&/^#[0-9a-f]{6}$/i.test(v)}
+function applyProp(key,val){if(!selected)return;selected[key]=val;render();markDirty()}
+function changePanel(n){if(!selected)return;const third=BASE_W/3,rel=(selected.x%third);selected.x=Math.max(0,Math.min(BASE_W-selected.w,(Number(n)-1)*third+Math.min(rel,third-selected.w)));render();markDirty()}
 ['propX','propY','propW','propH','propFont'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{const map={propX:'x',propY:'y',propW:'w',propH:'h',propFont:'fs'};applyProp(map[id],Number(e.target.value))}));
-document.getElementById('propColor').addEventListener('input',e=>applyProp('color',e.target.value));document.getElementById('propBold').addEventListener('change',e=>applyProp('bold',e.target.checked));document.getElementById('propName').addEventListener('change',e=>applyProp('name',e.target.value));document.getElementById('propRole').addEventListener('change',e=>applyProp('role',e.target.value));
-function switchPage(p){currentPage=p;selected=null;document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p));render();syncProps()}
-function setZoom(z,update=true){zoom=Math.max(.45,Math.min(1.25,z));wrap.style.transform=`scale(${zoom})`;document.getElementById('zoomLabel').textContent=Math.round(zoom*100)+'%';if(update)document.getElementById('statusMsg').textContent='화면 확대/축소: '+Math.round(zoom*100)+'%'}
-function fit(){const vp=document.getElementById('viewport');const pw=paper.offsetWidth||1040;const ph=paper.offsetHeight||736;setZoom(Math.min((vp.clientWidth-56)/pw,(vp.clientHeight-56)/ph,.98))}
-document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+b.dataset.panel).classList.add('active')}));
-document.querySelectorAll('[data-page]').forEach(x=>x.addEventListener('click',()=>switchPage(x.dataset.page)));
-document.querySelectorAll('.preset').forEach(x=>x.addEventListener('click',()=>{document.querySelectorAll('.preset').forEach(y=>y.classList.remove('selected'));x.classList.add('selected');document.getElementById('statusMsg').textContent=x.querySelector('b').textContent+' 적용 (데모)'}));
-document.getElementById('prevPage').onclick=()=>switchPage(currentPage==='outside'?'inside':'outside');document.getElementById('nextPage').onclick=()=>switchPage(currentPage==='outside'?'inside':'outside');
-document.getElementById('zoomOut').onclick=()=>setZoom(zoom-.1);document.getElementById('zoomIn').onclick=()=>setZoom(zoom+.1);document.getElementById('fitBtn').onclick=fit;document.getElementById('fitSmall').onclick=fit;
-document.getElementById('guideToggle').onchange=render;document.getElementById('resetBtn').onclick=()=>{seed();currentTheme='기본';render();document.getElementById('statusMsg').textContent='기준 원본주보로 복원했습니다.'};
-document.getElementById('addText').onclick=()=>{addObj(currentPage,{name:'새 텍스트',role:'content',x:560,y:520,w:300,h:90,text:'새 텍스트를 입력하세요',fs:18,color:'#263238',cls:'text'});render();select(state[currentPage].at(-1).id)};
-document.getElementById('deleteObj').onclick=()=>{if(!selected)return;state[currentPage]=state[currentPage].filter(o=>o.id!==selected.id);selected=null;render();syncProps()};
-document.getElementById('fontUp').onclick=()=>selected&&applyProp('fs',(selected.fs||16)+1);document.getElementById('fontDown').onclick=()=>selected&&applyProp('fs',Math.max(8,(selected.fs||16)-1));document.getElementById('boldBtn').onclick=()=>selected&&applyProp('bold',!selected.bold);document.getElementById('fontFamily').onchange=e=>{if(selected){selected.fontFamily=e.target.value;document.querySelector(`[data-id="${selected.id}"]`).style.fontFamily=e.target.value}};
-document.getElementById('saveLocal').onclick=()=>{localStorage.setItem('churchBulletinDemo',JSON.stringify({state,currentTheme}));document.getElementById('statusMsg').textContent='웹 데모 임시저장 완료'};
-document.getElementById('loadLocal').onclick=()=>{const raw=localStorage.getItem('churchBulletinDemo');if(!raw)return showModal('저장된 웹 데모 내용이 없습니다.');try{const d=JSON.parse(raw);state.outside=d.state.outside||[];state.inside=d.state.inside||[];currentTheme=d.currentTheme||'기본';render();document.getElementById('statusMsg').textContent='웹 데모 임시저장을 불러왔습니다.'}catch(e){showModal('저장 데이터를 읽지 못했습니다.')}};
-document.getElementById('modalClose').onclick=()=>document.getElementById('modal').classList.remove('show');function showModal(t){document.getElementById('modalText').textContent=t;document.getElementById('modal').classList.add('show')};document.querySelectorAll('.locked').forEach(b=>b.addEventListener('click',()=>showModal('이 기능은 정식 Windows 프로그램에서 사용할 수 있습니다. 웹 데모에서는 화면과 기본 편집 흐름을 체험할 수 있습니다.')));
-paper.addEventListener('click',()=>{selected=null;document.querySelectorAll('.obj').forEach(e=>e.classList.remove('selected'));syncProps()});
-const grid=document.getElementById('themeGrid');Object.keys(themePairs).forEach(name=>{const b=document.createElement('button');b.className='theme';b.innerHTML=`<img src="${themePairs[name].outside}" alt=""><span>${name}</span>`;b.onclick=()=>{currentTheme=name;render();document.getElementById('statusMsg').textContent=name+' 배경 적용'};grid.appendChild(b)});
-seed();render();setTimeout(fit,80);window.addEventListener('resize',()=>setTimeout(fit,50));
+document.getElementById('propColor').addEventListener('input',e=>applyProp('color',e.target.value));document.getElementById('propFill').addEventListener('input',e=>applyProp('fill',e.target.value));document.getElementById('propBorder').addEventListener('input',e=>applyProp('border',e.target.value));document.getElementById('propBold').addEventListener('change',e=>applyProp('bold',e.target.checked));document.getElementById('propLock').addEventListener('change',e=>applyProp('locked',e.target.checked));document.getElementById('propName').addEventListener('change',e=>applyProp('name',e.target.value));document.getElementById('propRole').addEventListener('change',e=>applyProp('role',e.target.value));document.getElementById('propPanel').addEventListener('change',e=>changePanel(e.target.value));
+function switchPage(p){currentPage=p;selected=null;document.querySelectorAll('[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page===p));render()}
+function setZoom(z,update=true){zoom=Math.max(.45,Math.min(1.25,z));wrap.style.transform=`scale(${zoom})`;document.getElementById('zoomLabel').textContent=Math.round(zoom*100)+'%';if(update)status('화면 확대/축소: '+Math.round(zoom*100)+'%')}
+function fit(){const vp=document.getElementById('viewport'),pw=paper.offsetWidth||1040,ph=paper.offsetHeight||736;setZoom(Math.min((vp.clientWidth-56)/pw,(vp.clientHeight-56)/ph,.98))}
+function status(t){document.getElementById('statusMsg').textContent=t}
+function markDirty(show=true){if(show)status('편집 내용이 변경되었습니다. 브라우저 임시저장을 사용할 수 있습니다.')}
+function activatePanel(name){document.querySelectorAll('.navbtn').forEach(x=>x.classList.toggle('active',x.dataset.panel===name));document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='panel-'+name))}
+document.querySelectorAll('.navbtn').forEach(b=>b.addEventListener('click',()=>activatePanel(b.dataset.panel)));document.querySelectorAll('[data-page]').forEach(x=>x.addEventListener('click',()=>switchPage(x.dataset.page)));
+function applyPreset(key){currentPreset=key;const oldTheme=currentTheme;seed();currentTheme=oldTheme;document.querySelectorAll('.preset').forEach(x=>x.classList.toggle('selected',x.dataset.preset===key));render();status(document.querySelector(`[data-preset="${key}"] b`).textContent+' 실제 예배 순서 적용')}
+document.querySelectorAll('.preset').forEach(x=>x.addEventListener('click',()=>applyPreset(x.dataset.preset)));
+function newDocument(){if(!confirm('현재 편집 내용을 초기화하고 새 주보를 만들까요? 브라우저 임시저장을 하지 않은 변경사항은 사라집니다.'))return;currentPreset='presbyterian';currentTheme='기본';seed();currentPage='outside';document.querySelectorAll('.preset').forEach(x=>x.classList.toggle('selected',x.dataset.preset==='presbyterian'));render();status('새 주보를 만들었습니다.')}
+document.getElementById('newBtn').onclick=newDocument;document.getElementById('newDocSmall').onclick=newDocument;
+document.getElementById('prevPage').onclick=()=>switchPage(currentPage==='outside'?'inside':'outside');document.getElementById('nextPage').onclick=()=>switchPage(currentPage==='outside'?'inside':'outside');document.getElementById('zoomOut').onclick=()=>setZoom(zoom-.1);document.getElementById('zoomIn').onclick=()=>setZoom(zoom+.1);document.getElementById('fitBtn').onclick=fit;document.getElementById('fitSmall').onclick=fit;
+document.getElementById('guideToggle').onchange=()=>{render();saveSettings()};document.getElementById('snapToggle').onchange=saveSettings;document.getElementById('autosaveToggle').onchange=saveSettings;document.getElementById('resetBtn').onclick=()=>{currentPreset='presbyterian';seed();currentTheme='기본';render();status('기준 원본주보로 복원했습니다.')};
+function addText(text='새 텍스트를 입력하세요',name='새 텍스트'){const o=addObj(currentPage,{name,role:'content',x:560,y:520,w:300,h:90,text,fs:18,color:'#263238'});render();select(o.id)}
+document.getElementById('addText').onclick=()=>addText();
+function addRect(){const o=addObj(currentPage,{type:'rect',name:'사각형',role:'decoration',x:610,y:500,w:260,h:130,fill:'#f4ead5',border:'#8d7449'});render();select(o.id)}document.getElementById('addRect').onclick=addRect;
+function addTable(){const o=addObj(currentPage,{type:'table',name:'표',role:'table',x:530,y:430,w:480,h:260,fs:15,color:'#263238',tableData:[['항목','내용','담당'],['기도','대표기도','OOO'],['찬송','OO장','다 같이']]});render();select(o.id)}document.getElementById('addTable').onclick=addTable;
+function addIconFile(label,file){const o=addObj(currentPage,{type:'icon',name:label+' 아이콘',role:'icon',x:720,y:480,w:110,h:110,src:'demo_assets/icons/'+file});render();select(o.id);status(label+' 아이콘을 삽입했습니다.')}
+function showClipart(){activatePanel('clipart')}document.getElementById('addIcon').onclick=showClipart;
+async function downsampleImage(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onerror=reject;r.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const max=1200,scale=Math.min(1,max/Math.max(img.width,img.height));const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.width*scale));c.height=Math.max(1,Math.round(img.height*scale));c.getContext('2d').drawImage(img,0,0,c.width,c.height);resolve(c.toDataURL('image/jpeg',.88))};img.src=r.result};r.readAsDataURL(file)})}
+document.getElementById('addImage').onclick=()=>document.getElementById('imageInput').click();document.getElementById('imageInput').onchange=async e=>{const file=e.target.files&&e.target.files[0];if(!file)return;try{const src=await downsampleImage(file),o=addObj(currentPage,{type:'image',name:'삽입 이미지',role:'image',x:590,y:370,w:420,h:300,src});render();select(o.id);status('이미지를 삽입했습니다.')}catch(err){showModal('이미지 오류','이미지를 읽지 못했습니다.',false)}e.target.value=''};
+function duplicateSelected(){if(!selected)return showModal('개체 선택','먼저 복제할 개체를 선택하세요.',false);const clone=JSON.parse(JSON.stringify(selected));delete clone.id;clone.x=Math.min(BASE_W-clone.w,clone.x+30);clone.y=Math.min(BASE_H-clone.h,clone.y+30);const o=addObj(currentPage,clone);render();select(o.id);status('선택 개체를 복제했습니다.')}
+document.getElementById('duplicateObj').onclick=duplicateSelected;document.getElementById('duplicateSelected').onclick=duplicateSelected;document.getElementById('deleteObj').onclick=()=>{if(!selected)return;state[currentPage]=state[currentPage].filter(o=>o.id!==selected.id);selected=null;render();status('선택 개체를 삭제했습니다.')};
+document.getElementById('fontUp').onclick=()=>selected&&applyProp('fs',(selected.fs||16)+1);document.getElementById('fontDown').onclick=()=>selected&&applyProp('fs',Math.max(8,(selected.fs||16)-1));document.getElementById('boldBtn').onclick=()=>selected&&applyProp('bold',!selected.bold);document.getElementById('fontFamily').onchange=e=>selected&&applyProp('fontFamily',e.target.value);
+document.getElementById('clearCurrent').onclick=()=>{if(!confirm((currentPage==='outside'?'바깥면':'안쪽면')+'을 기준 템플릿 상태로 초기화할까요? 다른 면의 편집 내용은 유지됩니다.'))return;const keepPage=currentPage,other=keepPage==='outside'?'inside':'outside',otherCopy=JSON.parse(JSON.stringify(state[other]));seed();state[other]=otherCopy;currentPage=keepPage;selected=null;render();status('현재 면만 기준 템플릿 상태로 초기화했습니다.')};
+function projectData(){return{state,currentTheme,currentPreset,settings:{guide:document.getElementById('guideToggle').checked,snap:document.getElementById('snapToggle').checked,autosave:document.getElementById('autosaveToggle').checked},savedAt:Date.now()}}
+function saveProject(silent=false){try{localStorage.setItem(PROJECT_KEY,JSON.stringify(projectData()));if(!silent)status('브라우저 임시저장 완료 · 파일로 내보내지는 않습니다.');return true}catch(e){if(!silent)showModal('임시저장 실패','브라우저 저장 공간이 부족할 수 있습니다. 큰 이미지를 줄인 뒤 다시 시도해 주세요.',false);return false}}
+function loadProject(){const raw=localStorage.getItem(PROJECT_KEY)||localStorage.getItem('churchBulletinDemo');if(!raw)return showModal('임시저장 없음','이 브라우저에 저장된 데모 작업이 없습니다.',false);try{const d=JSON.parse(raw);state.outside=(d.state&&d.state.outside)||[];state.inside=(d.state&&d.state.inside)||[];currentTheme=themePairs[d.currentTheme]?d.currentTheme:'기본';currentPreset=d.currentPreset||'presbyterian';if(d.settings){document.getElementById('guideToggle').checked=d.settings.guide!==false;document.getElementById('snapToggle').checked=d.settings.snap!==false;document.getElementById('autosaveToggle').checked=d.settings.autosave!==false}render();status('브라우저 임시저장 내용을 불러왔습니다.')}catch(e){showModal('불러오기 실패','저장 데이터를 읽지 못했습니다.',false)}}
+document.getElementById('saveLocal').onclick=()=>saveProject(false);document.getElementById('saveProjectPanel').onclick=()=>saveProject(false);document.getElementById('openLocal').onclick=loadProject;document.getElementById('loadLocal').onclick=loadProject;
+function loadSavedItems(){try{return JSON.parse(localStorage.getItem(ITEMS_KEY)||'[]')}catch(e){return[]}}
+function saveSavedItems(items){localStorage.setItem(ITEMS_KEY,JSON.stringify(items.slice(0,20)))}
+function saveSelectedItem(){if(!selected)return showModal('개체 선택','먼저 저장할 개체를 선택하세요.',false);const items=loadSavedItems(),copy=JSON.parse(JSON.stringify(selected));delete copy.id;items.unshift({name:copy.name||'저장 개체',obj:copy});try{saveSavedItems(items);renderSavedItems();status('선택 개체를 저장된 항목에 추가했습니다.')}catch(e){showModal('저장 실패','브라우저 저장 공간이 부족합니다.',false)}}
+function renderSavedItems(){const box=document.getElementById('savedItemsList'),items=loadSavedItems();box.innerHTML=items.length?'':'<p class="note" style="margin-top:12px">저장된 개체가 없습니다.</p>';items.forEach((it,i)=>{const row=document.createElement('div');row.className='saveditem';row.innerHTML=`<span class="grow">${escapeHtml(it.name)}</span><button class="btn tiny">삽입</button><button class="btn tiny danger">삭제</button>`;row.children[1].onclick=()=>{const obj=JSON.parse(JSON.stringify(it.obj));obj.x=Math.min(BASE_W-obj.w,(obj.x||100)+20);obj.y=Math.min(BASE_H-obj.h,(obj.y||100)+20);const o=addObj(currentPage,obj);render();select(o.id)};row.children[2].onclick=()=>{const a=loadSavedItems();a.splice(i,1);saveSavedItems(a);renderSavedItems()};box.appendChild(row)})}
+document.getElementById('saveSelected').onclick=saveSelectedItem;
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderLibrary(filter=''){const box=document.getElementById('libraryCards'),q=filter.trim().toLowerCase();box.innerHTML='';libraryData.filter(x=>!q||(x.title+' '+x.desc).toLowerCase().includes(q)).forEach(x=>{const c=document.createElement('div');c.className='library-card';c.innerHTML=`<b>${escapeHtml(x.title)}</b><p>${escapeHtml(x.desc)}</p><button class="btn tiny">현재 면에 삽입</button>`;c.querySelector('button').onclick=()=>addText(x.text,x.title);box.appendChild(c)});if(!box.children.length)box.innerHTML='<p class="note">검색 결과가 없습니다.</p>'}
+document.getElementById('librarySearch').oninput=e=>renderLibrary(e.target.value);document.getElementById('insertBibleRef').onclick=()=>{const v=document.getElementById('bibleRef').value.trim();if(!v)return showModal('성경 위치','성경 위치를 먼저 입력하세요.',false);addText('성경봉독\n'+v+'\n(본문을 입력하세요)','성경봉독')};document.getElementById('insertHymn').onclick=()=>{const n=document.getElementById('hymnNo').value.trim(),t=document.getElementById('hymnTitle').value.trim();if(!n&&!t)return showModal('찬송 정보','찬송가 장 번호나 제목을 입력하세요.',false);addText('찬송\n'+(n?`찬송가 ${n}장`:'')+(t?` ${t}`:'')+'\n다 같이','찬송')};
+document.getElementById('libraryBtn').onclick=()=>activatePanel('library');
+function cardUpdate(){const vals=[document.getElementById('cardTitle').value,document.getElementById('cardLeader').value,document.getElementById('cardTime').value,document.getElementById('cardNext').value],nodes=document.querySelectorAll('#cardPreview>div');nodes.forEach((n,i)=>n.textContent=vals[i])}
+['cardTitle','cardLeader','cardTime','cardNext'].forEach(id=>document.getElementById(id).addEventListener('input',cardUpdate));document.getElementById('worshipCardBtn').onclick=()=>{cardUpdate();document.getElementById('cardModal').classList.add('show')};document.getElementById('cardClose').onclick=()=>document.getElementById('cardModal').classList.remove('show');document.getElementById('insertCard').onclick=()=>{const t=[document.getElementById('cardTitle').value,document.getElementById('cardLeader').value,document.getElementById('cardTime').value,document.getElementById('cardNext').value].join('\n');const o=addObj(currentPage,{name:'예배진행 카드',role:'card',x:580,y:390,w:440,h:270,text:t,fs:21,bold:true,color:'#173b3b',fill:'#fbf7ee',border:'#a9966e',cls:'centered'});document.getElementById('cardModal').classList.remove('show');render();select(o.id);status('예배진행 카드를 현재 면에 삽입했습니다.')};
+function updateThemeActive(){document.querySelectorAll('.theme').forEach(x=>x.classList.toggle('active',x.dataset.theme===currentTheme))}
+const grid=document.getElementById('themeGrid');Object.keys(themePairs).forEach(name=>{const b=document.createElement('button');b.className='theme';b.dataset.theme=name;b.innerHTML=`<img src="${themePairs[name].outside}" alt=""><span>${name}</span>`;b.onclick=()=>{currentTheme=name;render();status(name+' 배경 적용')};grid.appendChild(b)});
+const clipGrid=document.getElementById('clipGrid');icons.forEach(([label,file])=>{const b=document.createElement('button');b.className='clipbtn';b.innerHTML=`<img src="demo_assets/icons/${file}" alt=""><span>${label}</span>`;b.onclick=()=>addIconFile(label,file);clipGrid.appendChild(b)});
+function saveSettings(){saveProject(true)}
+setInterval(()=>{if(document.getElementById('autosaveToggle').checked)saveProject(true)},15000);
+function showModal(title,text,download=true){document.getElementById('modalTitle').textContent=title;document.getElementById('modalText').textContent=text;document.getElementById('downloadBtn').style.display=download?'inline-block':'none';document.getElementById('modal').classList.add('show')}
+document.getElementById('modalClose').onclick=()=>document.getElementById('modal').classList.remove('show');document.querySelectorAll('.output-lock').forEach(b=>b.addEventListener('click',()=>showModal('정식판 출력 기능',`${b.dataset.output} 기능은 웹 데모에서 제한됩니다. 편집·이미지·아이콘·표·예배자료실·예배진행 카드 등 제작 기능은 계속 자유롭게 체험할 수 있습니다.`,true)));
+paper.addEventListener('click',()=>{selected=null;render()});
+function blockedOutput(label){showModal('정식판 출력 기능',`${label} 기능은 웹 데모에서 제한됩니다. 작업 내용은 브라우저 임시저장으로 보관할 수 있습니다.`,true)}
+window.addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='p'){e.preventDefault();blockedOutput('인쇄/PDF 저장')}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='s'){e.preventDefault();saveProject(false)}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='o'){e.preventDefault();loadProject()}if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='n'){e.preventDefault();newDocument()}if(e.key==='Delete'&&selected&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){state[currentPage]=state[currentPage].filter(o=>o.id!==selected.id);selected=null;render()}});
+const menuPop=document.getElementById('menuPop');const menuDefs={
+ file:[['새로 만들기','Ctrl+N',newDocument],['브라우저 임시저장','Ctrl+S',()=>saveProject(false)],['임시저장 불러오기','Ctrl+O',loadProject],['---'],['PDF 출력','정식판',()=>blockedOutput('PDF 출력'),true],['인쇄소 PDF','정식판',()=>blockedOutput('인쇄소 PDF'),true],['인쇄','정식판',()=>blockedOutput('인쇄'),true]],
+ edit:[['텍스트 추가','',()=>addText()],['선택 개체 복제','',duplicateSelected],['선택 개체 저장','',saveSelectedItem],['선택 개체 삭제','Delete',()=>document.getElementById('deleteObj').click()]],
+ view:[['화면 맞춤','',fit],['확대','',()=>setZoom(zoom+.1)],['축소','',()=>setZoom(zoom-.1)],['접힘선 켜기/끄기','',()=>{document.getElementById('guideToggle').checked=!document.getElementById('guideToggle').checked;render()}]],
+ insert:[['텍스트','',()=>addText()],['이미지','',()=>document.getElementById('imageInput').click()],['아이콘/클립아트','',showClipart],['사각형','',addRect],['표','',addTable]],
+ tools:[['예배진행 카드','',()=>document.getElementById('worshipCardBtn').click()],['예배자료실','',()=>activatePanel('library')],['저장된 항목','',()=>activatePanel('saved')],['환경설정','',()=>activatePanel('settings')]],
+ help:[['웹 데모 이용 안내','',()=>showModal('웹 데모 이용 안내','제작·편집 기능은 자유롭게 체험할 수 있습니다. PDF 출력, 인쇄소 PDF, 실제 인쇄만 제한됩니다. 브라우저 임시저장은 가능하지만 프로젝트 파일 내보내기는 제공하지 않습니다.',false)],['Windows 정식 버전','',()=>location.href='index.html#download']]
+};
+document.querySelectorAll('.menu').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();document.querySelectorAll('.menu').forEach(x=>x.classList.remove('open'));btn.classList.add('open');const def=menuDefs[btn.dataset.menu]||[];menuPop.innerHTML='';def.forEach(item=>{if(item[0]==='---'){const d=document.createElement('div');d.className='divider';menuPop.appendChild(d);return}const b=document.createElement('button');if(item[3])b.className='restricted';b.innerHTML=`${escapeHtml(item[0])}<small>${escapeHtml(item[1]||'')}</small>`;b.onclick=()=>{menuPop.classList.remove('show');document.querySelectorAll('.menu').forEach(x=>x.classList.remove('open'));item[2]()};menuPop.appendChild(b)});const r=btn.getBoundingClientRect();menuPop.style.left=r.left+'px';menuPop.style.top=r.bottom+'px';menuPop.classList.add('show')}));document.addEventListener('click',()=>{menuPop.classList.remove('show');document.querySelectorAll('.menu').forEach(x=>x.classList.remove('open'))});menuPop.addEventListener('click',e=>e.stopPropagation());
+renderLibrary();renderSavedItems();seed();render();cardUpdate();setTimeout(fit,80);window.addEventListener('resize',()=>setTimeout(fit,50));
 </script>
 </body>
 </html>
